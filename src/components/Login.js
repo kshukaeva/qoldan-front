@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import {FcGoogle} from 'react-icons/fc';
-const Login = () => {
+
+function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -11,13 +12,24 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8100/api/auth/authenticate', { email, password });
+      const response = await axios.post('http://localhost:8100/api/auth/authenticate',
+          { email, password },
+          {
+            headers: {
+              'content-type': 'application/json'
+            }
+          });
       const { token } = response.data;
 
       localStorage.setItem('token', token);
+      localStorage.setItem('username', email);
       navigate('/user-profile');
     } catch (error) {
-      setError('Invalid email or password');
+      if (error.response) {
+        setError(error.response.data);
+      } else {
+        console.log(error);
+      }
     }
   };
   
@@ -36,11 +48,23 @@ const Login = () => {
     <form onSubmit={handleSubmit}>
       <label>
         Email:
-        <input type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+        <input
+            type="email"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+        />
       </label>
       <label>
         Password:
-        <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <input
+            type="password"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+        />
       </label>
       <div className="forgot-password">
         <Link to="/forget-password" className='forgot-pass'>Forgot your password?</Link>

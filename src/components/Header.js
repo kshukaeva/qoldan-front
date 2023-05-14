@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiHeart, FiUser, FiShoppingCart } from 'react-icons/fi';
-import logo from '/Users/ksh/qolda/src/img/logo.png';
+import logo from '../img/logo.png';
 
 export default function Header(props) {
   const navigate = useNavigate();

@@ -30,20 +30,20 @@ const ItemCard = ({ items, onAdd, addFavourites, deleteFavourites }) => {
           <div className="first-main-container">
             <div className="first-sub-container">
               <div className="main-image-container">
-                <img src={"../img/"+item.img} alt={item.title}/>
+                <img src={"../img/"+item.imageUrl} alt={item.title}/>
                 {isFavourite ? <AiFillHeart className='fav' onClick={() => handleFavouriteClick(item)} /> : <AiOutlineHeart className='fav' onClick={() => handleFavouriteClick(item)} />} 
               </div>
               <div className="three-image-container">
-                <img src={"../img/"+item.img} alt={item.title}/>
-                <img src={"../img/"+item.img} alt={item.title}/>
-                <img src={"../img/"+item.img} alt={item.title}/>
+                <img src={"../img/"+item.imageUrl} alt={item.title}/>
+                <img src={"../img/"+item.imageUrl} alt={item.title}/>
+                <img src={"../img/"+item.imageUrl} alt={item.title}/>
               </div>
             </div>
             <div className="second-sub-container">
               <h2 onClick={handleItemClick}>{item.title}</h2>
-              <p>Seller's Name</p>
+              <p>Seller: {item.ownerName}</p>
               <p>{item.desc}</p>
-              <p>Category: {item.category}</p>
+              <p>Category: {item.categoryTitle}</p>
               <b>{item.price} KZT</b>
               <div className='add-to-cart' onClick={() => onAdd(item)}> <FiShoppingCart/> <span>ADD TO CART</span></div>
             </div>
@@ -53,7 +53,7 @@ const ItemCard = ({ items, onAdd, addFavourites, deleteFavourites }) => {
             <div className="recommendation-container">
               {relatedProducts.map(product => (
                 <div key={product.id} className="recommendation-item">
-                  <img src={"../img/"+product.img} alt={product.title}/>
+                  <img src={"../img/"+product.imageUrl} alt={product.title}/>
                   <h3>{product.title}</h3>
                   {/*<p>{product.category}</p>*/}
                   <b>{product.price} KZT</b>

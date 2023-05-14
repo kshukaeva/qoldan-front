@@ -23,7 +23,7 @@ const Item = ({ item, onAdd, onItemClick, isFavourite, addFavourites, deleteFavo
         {item && (
             <div>
               <div className="item-image-container">
-                <img src={"../img/"+item.img} alt={item.title}/>
+                <img src={"../img/"+item.imageUrl} alt={item.title}/>
                 {favourite ? (
                     <AiFillHeart className='fav' onClick={handleFavouriteClick} />
                 ) : (

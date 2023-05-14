@@ -23,14 +23,24 @@ export default function Register() {
     try {
       const response = await axios.post(
           "http://localhost:8100/api/auth/register",
-          state
+          state,
+          {
+            headers: {
+              'content-type': 'application/json'
+            }
+          }
       );
+      const { token } = response.data;
 
       localStorage.setItem("token", response.data.token);
-      navigate('/login');
+      localStorage.setItem('username', state.email);
+      navigate('/all');
     } catch (error) {
-      console.error(error);
-      alert("Registration failed!");
+      if (error.response) {
+        alert(error.response.data);
+      } else {
+        console.log(error);
+      }
     }
   };
 
@@ -54,6 +64,7 @@ export default function Register() {
               name="firstname"
               value={state.firstname}
               onChange={handleChange}
+              required
           />
         </div>
         <div>
@@ -63,6 +74,7 @@ export default function Register() {
               name="lastname"
               value={state.lastname}
               onChange={handleChange}
+              required
           />
         </div>
         <div>
@@ -72,6 +84,7 @@ export default function Register() {
               name="email"
               value={state.email}
               onChange={handleChange}
+              required
           />
         </div>
         <div>
@@ -81,6 +94,7 @@ export default function Register() {
               name="password"
               value={state.password}
               onChange={handleChange}
+              required
           />
         </div>
       <div className="login-button-container">
