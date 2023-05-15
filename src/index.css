@@ -162,6 +162,7 @@ header {
     font-weight: 700;
     line-height: 39px;
     color: #1E1E1E;
+    cursor: pointer;
 }
 
 .cart .item b{
@@ -257,222 +258,7 @@ header {
 }
 
 
-/* about us*/
-.about-main{
-    width: 1200px;
-    margin: 50px auto;
-}
 
-.about{
-    width: 1200px;
-    margin: 50px auto;
-}
-.about .presentation{
-    margin: 50px 0;
-
-    /*background: url('./img/about.png') no-repeat;*/
-    width: 100%;
-    height: 500px;
-    background-size: cover;
-    background-position: center center;
-    background-color: #C1DCDC;
-    border-radius: 15px;
-}
-
-.about .presentation::after{
-    content: 'Who we are?';
-    position: absolute;
-    top: 378px;
-    left: 320px;
-    width: 300px;
-    font-size: 50px;
-    font-weight: 600;
-    color: black;
-}
-
-
-.about .presentation::before{
-    content: '';
-    position: absolute;
-    top: 480px;
-    left: 200px;
-    width: 300px;
-    font-size: 25px;
-    font-weight: 300;
-    color: #fff;
-}
-
-.about .presentation .img-about{
-    width: 43%;
-    margin-top: -395px;
-    margin-left: 650px;
-}
-
-.about .presentation .vector1{
-    width: 50%;
-    margin-top: 20px;
-    margin-left: 40px;
-}
-
-.about .presentation .vector2{
-    width: 20%;
-    margin-top: 180px;
-    margin-left: -200px;
-}
-
-.about .presentation .vector3{
-    width: 17%;
-    margin-top: 20px;
-    margin-left: 30px;
-}
-
-.about .presentation .row{
-    box-sizing: border-box;
-    content: "";
-    clear: both;
-    display: table;
-}
-
-.about .presentation .column1 {
-    float: left;
-    width: 33.33%;
-    padding: 5px;
-}
-
-.about p{
-    font-size: 30px;
-    font-weight: 600;
-    color: black;
-    margin-left: 500px;
-}
-
-.card-group{
-    width: 1200px;
-    margin: 50px auto;
-    display: flex;
-    justify-content: center;
-}
-
-.card-group .card1 {
-    height: 396px;
-    width: 312px;
-    background-color: white;
-    border-radius: 10px;
-    margin-top: 20px;
-    box-shadow: 0px 2px 15px #888888;
-}
-
-.card-group .card2 {
-    height: 396px;
-    width: 312px;
-    background-color: white;
-    border-radius: 10px;
-    margin-left: 12%;
-    margin-right: 12%;
-    box-shadow: 0px 2px 15px #888888;
-}
-
-.card-group .card3 {
-    height: 396px;
-    width: 312px;
-    background-color: white;
-    border-radius: 10px;
-    margin-top: 20px;
-    box-shadow: 0px 2px 15px #888888;
-}
-
-.rediscovering-the-charm-of-the-p {
-    color: #000;
-    align-self: center;
-    margin-bottom: 35px;
-    font-size: 2rem;
-    display: flex;
-    margin-top: 20px;
-    text-align: center;
-    line-height: 1.5;
-}
-
-.we-believe-that-every-vintage-pi {
-    align-self: center;
-    margin-bottom: 32px;
-    font-weight: 300;
-    text-align: center;
-    display: flex;
-    margin-left: 10px;
-    margin-right: 10px;
-    font-size: 20px;
-    line-height: 2;
-    opacity: 0.3;
-}
-
-.sustainability-style-and-soul {
-    color: #000;
-    align-self: center;
-    margin-bottom: 35px;
-    font-size: 2rem;
-    display: flex;
-    margin-top: 20px;
-    text-align: center;
-    line-height: 1.5;
-}
-
-.by-choosing-vintage-and-second-h {
-    align-self: center;
-    margin-bottom: 32px;
-    font-weight: 300;
-    text-align: center;
-    display: flex;
-    margin-left: 10px;
-    margin-right: 10px;
-    font-size: 20px;
-    line-height: 2;
-    opacity: 0.3;
-}
-
-.quality-authenticity-and-service {
-    color: #000;
-    align-self: center;
-    margin-bottom: 35px;
-    font-size: 2rem;
-    display: flex;
-    margin-top: 20px;
-    text-align: center;
-    line-height: 1.5;
-}
-
-.we-carefully-curate-our-collecti {
-    align-self: center;
-    margin-bottom: 32px;
-    font-weight: 300;
-    text-align: center;
-    display: flex;
-    margin-left: 10px;
-    margin-right: 10px;
-    font-size: 20px;
-    line-height: 2;
-    opacity: 0.3;
-}
-
-.about-main .team{
-    display: flex;
-}
-
-.about-main .team-image{
-    width: 70%;
-}
-
-.about-main .team-image img{
-    width: 80%;
-}
-
-.about-main .team-text{
-    text-align: center;
-    align-self: center;
-    margin-top: 17px;
-    line-height: 2.2;
-    width: 30%;
-    font-size: 22px;
-}
 
 /* items */
 .items {
@@ -483,7 +269,10 @@ header {
 }
 .item-image-container {
     position: relative;
+    text-align: center;
+    background-color: #f5f5f5;
 }
+
 .item-image-container .fav {
     position: absolute;
     top: 10px;
@@ -505,11 +294,12 @@ header {
     height: 100%;
 }
 
-.items .item img{
+.items .item img {
     width: 100%;
     border-radius: 10px 10px 10px 10px;
-    transition: tranform 500ms ease;
+    transition: transform 500ms ease;
     height: 370px;
+    min-height: 370px;
 }
 
 .items .item img:hover{
@@ -517,7 +307,6 @@ header {
 }
 .items h2{
     margin: 10px 20px;
-    font-family: 'Poppins';
     font-style: normal;
     font-weight: 500;
     font-size: 25px;
@@ -530,7 +319,6 @@ header {
     color: #333;
 }
 .items b{
-    font-family: 'Poppins';
     font-style: normal;
     font-weight: 500;
     font-size: 18px;
@@ -597,7 +385,7 @@ header {
 
 .main-image-container .fav {
     position: absolute;
-    color: #ffffff;
+    color: #C1DCDC;
     top: 10px;
     right: 35px;
     cursor: pointer;
@@ -973,7 +761,7 @@ ul{
     color: #000;
 }
 
-label {
+.login label {
     display: flex;
     flex-direction: column;
     margin-top: 20px;
@@ -981,7 +769,7 @@ label {
     font-size: 1.2rem;
 }
 
-input[type="email"],
+.login input[type="email"],
 input[type="password"],
 input[type="text"] {
     padding: 10px;
@@ -991,32 +779,19 @@ input[type="text"] {
     width: 100%;
 }
 
-.remember-me-forgot-password {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.forgot-password {
     margin-top: 20px;
-    font-size: 1.2rem;
-    width: 100%;
+    font-size: 18px;
+    text-align: center;
 }
 
-.rememberMe {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.rememberMe input[type="checkbox"] {
-    margin-right: 10px;
-}
-
-.logina {
+.forgot-pass {
     text-decoration: none;
     color: #777;
     transition: all 0.3s ease-in-out;
 }
 
-.logina:hover {
+.forgot-pass:hover {
     color: #000;
 }
 
@@ -1025,7 +800,7 @@ input[type="text"] {
     justify-content: center;
 }
 
-button[type="submit"] {
+.login button[type="submit"] {
     margin-top: 30px;
     padding: 10px 20px;
     background: #C1DCDC;
@@ -1038,26 +813,41 @@ button[type="submit"] {
     transition: all 0.3s ease-in-out;
 }
 
-button[type="submit"]:hover {
+.login button[type="submit"]:hover {
     background-color: rgba(193, 220, 220, 0.36);
 }
 
-.google-button-container{
+.google-button-container {
     display: flex;
+    align-items: center;
     justify-content: center;
-}
-.google {
     margin-top: 30px;
-    padding: 10px 20px;
+}
+
+.google-icon-text-container {
+    display: flex;
+    align-items: center;
     background: #C1DCDC;
+    border-radius: 25px;
+    padding: 15px;
+}
+
+.google-icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 7px;
+}
+
+.google-text {
     color: #4b4444;
     border-radius: 34px;
     font-size: 14px;
     border: none;
     cursor: pointer;
     text-align: center;
-    transition: all 0.3s ease-in-out;
 }
+
 
 
 /*user profile*/
@@ -1132,107 +922,10 @@ li {
 
 /* addProduct */
 .add-product-container {
-    /*display: flex;*/
+    display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: 50px;
-    border-radius: 10px;
-    box-shadow: 0px 2px 15px #888888;
-    width: 1200px;
-    margin: 50px auto;
-    height: 600px;
-}
-
-.add-product-container h1{
-    text-align: center;
-    padding-top: 20px;
-}
-
-.add-product-container .form-container{
-    /*display: flex;*/
-    justify-content: center;
-}
-
-.add-product-container .form-container .form-row{
-    display: flex;
-    width: 1100px;
-    margin: 20px;
-}
-
-.add-product-container .form-container .form-col1{
-    margin-right: 50px;
-    width: 500px;
-    height: 300px;
-    margin-left: 50px;
-}
-
-.add-product-container .form-container .form-col2{
-    margin-left: 50px;
-    width: 500px;
-    height: 300px;
-}
-
-.product-form{
-    width: 1000px;
-    /*display: inline-flex;*/
-    position: relative;
-}
-
-.product-form button{
-    width: 180px;
-    height: 45px;
-    margin-left: 525px;
-    margin-top: 25px;
-}
-
-.check-box-row{
-    display: flex;
-    justify-content: center;
-    margin-top: 70px;
-    margin-left: 200px;
-
-}
-
-.check-box-col1{
-    margin-right: 50px;
-
-}
-
-.check-box-col2{
-    margin-left: 50px;
-}
-.check-box-col3{
-    margin-left: 50px;
-}
-.check-box-col4{
-    margin-left: 50px;
-}
-
-/*Upload Image*/
-.upload-image{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border: 2px dashed #C1DCDC;
-    height: 150px;
-    /*width: 150px;*/
-    cursor: pointer;
-    border-radius: 5px;
-}
-.uploaded-row{
-    margin: 10px 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 15px 20px;
-    border-radius: 5px;
-    background-color: #C1DCDC;
-}
-
-.upload-content{
-    display: flex;
-    justify-content: center;
 }
 
 textarea,
@@ -1245,198 +938,57 @@ input[type="text"] {
     width: 100%;
 }
 
-/*user profile*/
-.UserProfile {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.UserProfile-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 20px;
-}
-
-.UserProfile-profileImg {
-    position: relative;
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    overflow: hidden;
-    margin-bottom: 10px;
-}
-
-.UserProfile-defaultProfileImg {
+/* forgot-password */
+.forget-password {
     width: 100%;
-    height: 100%;
-    background-color: #ddd;
-}
-
-.UserProfile-profileImg img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.UserProfile-profileImg input[type="file"] {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    cursor: pointer;
-}
-
-.UserProfile-userInfo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.UserProfile-userInfo h1 {
-    margin: 0;
-}
-
-.UserProfile-userInfo label {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 5px 0;
-}
-
-.UserProfile-userInfo label input,
-.UserProfile-userInfo label textarea {
-    margin-top: 5px;
-    padding: 5px;
-    border-radius: 5px;
-    border: none;
-    box-shadow: 0 0 5px #ccc;
-}
-
-.UserProfile-tabs {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 10px;
-}
-
-.UserProfile-tab {
-    padding: 10px;
-    margin: 0 5px;
-    border-radius: 5px;
-    border: none;
-    box-shadow: 0 0 5px #ccc;
-    cursor: pointer;
-}
-
-.UserProfile-tab.active {
-    background-color: #ddd;
-}
-
-.UserProfile-content {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.UserProfile-productCard {
-    width: 300px;
-    margin: 10px;
-    padding: 10px;
-    border-radius: 5px;
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 20px;
+    background-color: #ffffff;
     border: 1px solid #ddd;
+    border-radius: 5px;
 }
 
-.UserProfile-productCard img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
+.forget-password h1 {
+    font-size: 32px;
+    margin-top: 0;
+}
+
+.forget-password label {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
     margin-bottom: 10px;
 }
 
-.UserProfile-productCard h2 {
-    margin: 0;
-    font-size: 1.5rem;
+.forget-password input {
+    display: block;
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
 }
 
-.UserProfile-productCard p {
-    margin: 5px 0;
-}
-
-.UserProfile-productCard button {
-    margin-top: 10px;
-    padding: 5px 10px;
-    background-color: #dc3545;
-    color: #fff;
+.forget-password button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #000000;
+    background-color: #C1DCDC;
     border: none;
     border-radius: 5px;
     cursor: pointer;
 }
 
-.UserProfile-pendingOrder {
-    display: flex;
-    align-items: center;
-    margin: 10px;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+.forget-password button:hover {
+    background-color: #a1cece;
 }
 
-.UserProfile-pendingOrder img {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    margin-right: 10px;
-}
-
-.UserProfile-pendingOrder div {
-    flex-grow: 1;
-}
-
-.UserProfile-pendingOrder h2 {
-    margin: 0;
-}
-
-.UserProfile-pendingOrder p {
-    margin: 5px 0;
-}
-
-.UserProfile-pendingOrder button {
-    margin-left: 10px;
-    padding: 5px 10px;
-    background-color: #28a745;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.UserProfile-orderHistory {
-    display: flex;
-    align-items: center;
-    margin: 10px;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-.UserProfile-orderHistory img {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    margin-right: 10px;
-}
-
-.UserProfile-orderHistory div {
-    flex-grow: 1;
-}
-
-.UserProfile-orderHistory h2 {
-    margin: 0;
-}
-
-.UserProfile-orderHistory p {
-    margin: 5px 0;
+.forget-password p {
+    margin-top: 20px;
 }

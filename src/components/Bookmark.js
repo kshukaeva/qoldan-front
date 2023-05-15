@@ -4,7 +4,7 @@ import {useNavigate, useParams} from "react-router-dom";
 
 const Bookmark = ({ items, favourites, onAdd, addFavourites,deleteFavourites }) => {
     const { id } = useParams();
-    const relatedProducts = items.filter(item => item.category === item.category && item.id !== Number(id)).slice(0, 3);
+    const relatedProducts = items ? items.filter(item => item.category === item.category && item.id !== Number(id)).slice(0, 3) : [];
     const navigate = useNavigate();
     const handleItemCardClick = (itemId) => {
         navigate(`/item/${itemId}`);

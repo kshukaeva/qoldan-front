@@ -4,7 +4,6 @@ import {useNavigate, useParams} from "react-router-dom";
 
 const Cart = ({ items, orders, onDelete }) => {
   const { id } = useParams();
-  const relatedProducts = items.filter(item => item.category === item.category && item.id !== Number(id)).slice(0, 3);
   const navigate = useNavigate();
   const handleItemCardClick = (itemId) => {
     navigate(`/item/${itemId}`);
