@@ -1,16 +1,30 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiHeart, FiUser, FiShoppingCart } from 'react-icons/fi';
 import logo from '../img/logo.png';
 
 export default function Header(props) {
-  const navigate = useNavigate();
+    const [userData, setUserData] = useState({});
+    const navigate = useNavigate();
 
-  const handleClick = (path) => {
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch('/userData.json');
+                const data = await response.json();
+                setUserData(data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchData();
+    }, []);
+
+    const handleClick = (path) => {
     navigate(path);
   };
 
-  const isLoggedIn = false;
+  const isLoggedIn = true;
 
   return (
     <header>
@@ -25,14 +39,14 @@ export default function Header(props) {
         <ul className="nav">
           <li onClick={() => handleClick('/')}>Home</li>
           <li onClick={() => handleClick('/all')}>Products</li>
-          <li onClick={() => handleClick('/contacts')}>Contacts</li>
+          <li onClick={() => handleClick('/donation')}>Donation</li>
         </ul>
       </div>
       <div className="right-side">
         <FiShoppingCart onClick={() => handleClick('/cart')} className={`shop-cart-button`} />
         <FiHeart onClick={() => handleClick('/fav')} className="fav" />
         {isLoggedIn ? (
-          <FiUser onClick={() => handleClick('/user-profile')} className="login-icon" />
+          <img src={'../img/' + userData.imageUrl} alt="Logo" onClick={() => handleClick('/user-profile')} className="login-icon" />
         ) : (
           <FiUser onClick={() => handleClick('/login')} className="login-icon" />
         )}

@@ -19,7 +19,7 @@ function AddProduct() {
   const [productImage, setProductImage] = useState('');
   const [productQuantity,setProductQuantity] = useState('')
   const [selectedType, setSelectedType] = useState(''); // keep track of the selected type
-
+  const categories = ['Electronics', 'Clothing', 'Home', 'Beauty'];
   const handleTypeChange = (event) => {
     setSelectedType(event.target.value); // update the selected type when user changes the radio button
   }
@@ -47,8 +47,10 @@ function AddProduct() {
     setProductPrice(event.target.value);
   }
 
-  const handleProductQuantityChange =(event)=>{
-    setProductQuantity(event.target.value);
+  const [selectedCategory, setSelectedCategory] = useState('');
+
+  const handleCategoryChange = (event) => {
+    setSelectedCategory(event.target.value);
   }
 
   const handleProductImageChange = (event) => {
@@ -90,10 +92,18 @@ function AddProduct() {
                 </label>
 
                 <label>
-                  Quantity:
-                  <input type="number" min="0" value={productQuantity} onChange={handleProductQuantityChange} />
+                  Category:
+                  <select value={selectedCategory} onChange={handleCategoryChange}>
+                    <option value="">Select a category</option>
+                    {categories.map((category) => (
+                        <option key={category} value={category}>
+                          {category}
+                        </option>
+                    ))}
+                  </select>
                 </label>
               </div>
+
             </div>
             <div className='check-box-row'>
               <div className='check-box-col1'>
@@ -120,32 +130,8 @@ function AddProduct() {
                   Secondhand
                 </label>
               </div>
-              <div className='check-box-col3'>
-                <label>
-                  <input
-                      type="radio"
-                      name="product-type"
-                      value="Charity"
-                      checked={selectedType === 'Charity'}
-                      onChange={handleTypeChange}
-                  />
-                  Charity
-                </label>
-              </div>
-              <div className='check-box-col4'>
-                <label>
-                  <input
-                      type="radio"
-                      name="product-type"
-                      value="Recycling"
-                      checked={selectedType === 'Recycling'}
-                      onChange={handleTypeChange}
-                  />
-                  Recycling
-                </label>
-              </div>
             </div>
-            <button type="submit">Submit</button>
+            <button type="submit" >Submit</button>
 
           </form>
         </div>

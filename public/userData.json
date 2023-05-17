@@ -1,0 +1,87 @@
+{
+  "username": "Johndoe",
+  "firstName": "John",
+  "lastName": "Doe",
+  "imageUrl": "clothes.jpg",
+  "email": "johndoe@example.com",
+  "age": 30,
+  "city": "New York City",
+  "orders": [
+    {
+      "id": 1,
+      "date": "2022-05-15",
+      "status": "progress",
+      "items": [
+        {
+          "productId": 1,
+          "name": "Product 1",
+          "price": 10.99,
+          "imageUrl": "clothes.jpg"
+        },
+        {
+          "productId": 2,
+          "name": "Product 2",
+          "price": 19.99,
+          "imageUrl": "clothes.jpg"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "date": "2022-05-10",
+      "status": "completed",
+      "items": [
+        {
+          "productId": 3,
+          "name": "Product 3",
+          "price": 15.99,
+          "imageUrl": "clothes.jpg"
+        }
+      ]
+    }
+  ],
+
+  "sold": [
+    {
+      "name": "Product 1",
+      "price": 10.99,
+      "status": "progress",
+      "imageUrl": "clothes.jpg"
+    },
+    {
+      "name": "Product 4",
+      "price": 29.99,
+      "status": "completed",
+      "imageUrl": "clothes.jpg"
+    },
+    {
+      "name": "Product 5",
+      "price": 5.99,
+      "status": "completed",
+      "imageUrl": "clothes.jpg"
+    }
+  ],
+  "myProducts": [
+    {
+      "productId": 1,
+      "title": "Product 1",
+      "summary": "dkeokdowqkdowqkd",
+      "price": 10.99,
+      "imageUrl": "clothes.jpg",
+      "type": "vintage",
+      "category": "clothes"
+    },
+    {
+      "productId": 4,
+      "name": "Product 4",
+      "price": 29.99,
+      "imageUrl": "clothes.jpg"
+    },
+    {
+      "productId": 5,
+      "name": "Product 5",
+      "price": 5.99,
+      "imageUrl": "clothes.jpg"
+    }
+  ]
+}

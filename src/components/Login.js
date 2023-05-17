@@ -74,14 +74,14 @@ function Login() {
         <button type="submit">Login</button>
         </div>
     </form>
-        <div className="google-button-container">
-          <div className="google-icon-text-container">
-            <div className="google-icon-container">
-              <FcGoogle/>
-            </div>
-            <h3 className="google-text">Sign Up with Google</h3>
-          </div>
-        </div>
+        {/*<div className="google-button-container">*/}
+        {/*  <div className="google-icon-text-container">*/}
+        {/*    <div className="google-icon-container">*/}
+        {/*      <FcGoogle/>*/}
+        {/*    </div>*/}
+        {/*    <h3 className="google-text">Sign Up with Google</h3>*/}
+        {/*  </div>*/}
+        {/*</div>*/}
 
       </div>
   </div>  

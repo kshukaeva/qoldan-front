@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Organization A",
+    "acceptedItems": ["Clothing", "Accessories", "Furniture"]
+  },
+  {
+    "name": "Organization B",
+    "acceptedItems": ["Electronics", "Books", "Toys"]
+  },
+  {
+    "name": "Organization C",
+    "acceptedItems": ["Kitchenware", "Home Decor"]
+  }
+]

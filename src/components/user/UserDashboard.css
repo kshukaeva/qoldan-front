@@ -1,0 +1,324 @@
+.user-main-dash{
+    width: 1000px;
+    margin: 50px auto;
+    display: flex;
+    justify-content: space-between;
+
+}
+/****************************************************/
+/*user-profile-left*/
+/****************************************************/
+.user-profile-left{
+    width: 30%;
+
+}
+
+/****************************************************/
+/*user-profile-dash*/
+/****************************************************/
+
+.user-profile-dash {
+    height: 350px;
+    display: flex;
+    margin-bottom: 20px;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.user-profile-dash img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.user-profile-dash p {
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.user-profile-dash .email {
+    font-weight: bold;
+}
+
+.user-profile-dash .location {
+    font-style: italic;
+}
+
+
+/****************************************************/
+/*list-of-separation*/
+/****************************************************/
+.list-of-separation{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+
+.list-of-separation .buttn {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: #000000;
+    border: none;
+    padding: 10px 10px 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.list-of-separation .buttn:hover {
+    background-color: #9cc2c2;
+    color: #000000;
+}
+
+/****************************************************/
+/*list-of-productsn*/
+/****************************************************/
+.list-of-products{
+    width: 69%;
+    padding: 20px;
+    /*box-shadow: 0 2px 4px rgba(0,0,0,0.2);*/
+}
+
+.list-of-my-products .details-form {
+    margin-top: 20px;
+}
+
+.list-of-my-products .details-form .form-row {
+    margin-bottom: 10px;
+}
+
+.list-of-my-products .details-form .form-row label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.list-of-my-products .details-form .form-row input {
+    width: 100%;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.list-of-my-products .details-form .date-inputs {
+    display: flex;
+}
+
+.list-of-my-products .details-form .date-inputs input {
+    width: 70px;
+    margin-right: 5px;
+}
+.save-changes {
+    margin-top: 10px;
+    background-color: #f2f2f2;
+    color: #333;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.save-changes:hover {
+    background-color: #ddd;
+}
+
+
+.list-of-my-products {
+    padding: 20px;
+    /*box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);*/
+}
+
+.list-of-my-products h3 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.add-new-product {
+    text-align: right;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+.add-new-product-button {
+    background-color: #8dc0c0;
+    padding: 5px 10px;
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 7px;
+}
+
+.add-new-product-button span {
+    color: #111111;
+}
+.list-of-my-products ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.list-of-my-products li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    height: 100px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 7px;
+}
+.my-products-info{
+    display: flex;
+    padding: 5px;
+    width: 65%;
+    align-items: center;
+}
+.my-products-inf{
+    margin-left: 10px;
+}
+.my-products-edit{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    padding: 5px;
+}
+.product-edit-icon{
+    cursor: pointer;
+    font-size: 20px;
+}
+.product-edit-icon:hover{
+    color: #3eaf48;
+    transform: scale(1.1);
+}
+
+.product-delete-icon{
+    margin-left: 17px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.product-delete-icon:hover{
+    color: #d94d4d;
+    transform: scale(1.1);
+}
+.list-of-my-products img {
+    max-width: 80px;
+    border-radius: 7px;
+}
+
+
+.list-of-products h3 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.order-filter {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.status-cards {
+    display: flex;
+    gap: 10px;
+}
+
+.status-card {
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #e2e2e2;
+}
+
+.status-card.active {
+    background-color: #8dc0c0;
+    color: #ffffff;
+}
+
+.list-of-orders {
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.order-info{
+    display: flex;
+    padding: 10px;
+}
+.order-info b {
+    margin: 0;
+}
+
+.order-info p {
+    margin-left: auto;
+}
+.card-one-product{
+    padding: 10px;
+}
+.card-one-product ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.card-one-product li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.card-one-product img {
+    max-width: 80px;
+    border-radius: 7px;
+    margin-right: 10px;
+}
+
+.card-one-product p {
+    margin: 0;
+    font-weight: bold;
+}
+
+.card-one-product b {
+    margin-left: auto;
+}
+.sold-products {
+    margin-top: 20px;
+}
+
+.sold-products ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sold-products li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.sold-products img {
+    max-width: 80px;
+    border-radius: 7px;
+    margin-right: 10px;
+}
+
+.sold-products p {
+    margin: 0;
+    font-weight: bold;
+}
+
+.sold-products b {
+    margin-left: auto;
+}
