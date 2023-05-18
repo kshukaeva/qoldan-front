@@ -7,9 +7,9 @@
 }
 
 body {
-    width: 1400px;
+    background: #ffffff;
+    max-width: 1400px;
     margin: 50px auto;
-    background: #fff;
     color: #222;
     font-weight: 300;
 }

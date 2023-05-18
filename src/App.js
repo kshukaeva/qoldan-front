@@ -18,7 +18,7 @@ import AboutUs from "./components/AboutUs";
 import Uploaimagetest from "./components/Uploaimagetest";
 import UserDashboard from './components/user/UserDashboard';
 import DonationPage from "./components/donation/DonationPage";
-import CharityPage from "./components/donation/CharityPage";
+import OrganizationPage from "./components/donation/OrganizationPage";
 import EditProduct from "./components/user/EditProduct";
 import MyProducts from "./components/user/MyProducts";
 
@@ -173,7 +173,7 @@ function App() {
           <Route path="/test" element={<Uploaimagetest/>}/>
           <Route path="/user-profile" element={<UserDashboard/>}/>
           <Route path="/donation" element={<DonationPage/>} />
-          <Route path="/charity/:charityName" element={<CharityPage/>} />
+          <Route path="/organization/:id" element={<OrganizationPage/>} />
           <Route path="/edit-product" element={<EditProduct/>} />
           <Route path="/my-products" element={<MyProducts/>} />
         </Routes>
