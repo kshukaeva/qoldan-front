@@ -5,6 +5,7 @@ import { BsCart2, BsCartCheckFill } from 'react-icons/bs';
 
 const Item = ({ item, onAdd, onRemove, onItemClick, isFavourite, addFavourites, deleteFavourites, callback, setCallback }) => {
   const [favourite, setFavourite] = useState(isFavourite);
+  const [itemImage, setItemImage] = useState("../img/" + item.img);
 
   // const handleFavouriteClick = () => {
   //   if (favourite) {
@@ -24,7 +25,12 @@ const Item = ({ item, onAdd, onRemove, onItemClick, isFavourite, addFavourites, 
         {item && (
             <div>
               <div className="item-image-container">
-                <img src={"../img/"+item.img} alt={item.title}/>
+                {/*<img src={"../img/"+itemImage} alt={item.title}/>*/}
+                <img src={itemImage}
+                     onError={(target) => {
+                       target.onerror=null;
+                       target.src='../img/default/no-photo.jpeg';
+                     }}/>
                 {item.inWishlist ? (
                     <AiFillHeart className='fav' onClick={() => deleteFavourites(item.id, callback, setCallback)} />
                 ) : (

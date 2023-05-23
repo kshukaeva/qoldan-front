@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Favourites from './Favourites';
 import {useNavigate, useParams} from "react-router-dom";
-import useApiCall from "../api/useApiCall";
-import {getMyWishlist} from "../api/WishlistAPI";
+import {getMyWishlist} from "../../api/WishlistAPI";
 
 const Bookmark = ({ items, favourites, setFavourites, onAdd, onRemove, addFavourites,deleteFavourites }) => {
     const { id } = useParams();
@@ -23,7 +22,7 @@ const Bookmark = ({ items, favourites, setFavourites, onAdd, onRemove, addFavour
                 alert(error.response.data);
             })
             .finally(() => {})
-    }, [favourites, callback]);
+    }, [callback]);
 
     return (
         <div className='bookmark-container'>

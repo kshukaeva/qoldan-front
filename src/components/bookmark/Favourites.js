@@ -1,8 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import {FiShoppingBag, FiShoppingCart} from 'react-icons/fi';
-import Item from "./Item";
-import {getMyWishlist} from "../api/WishlistAPI";
 
 const Favourites = ({ item, onAdd, onRemove, onItemClick, isFavourite, addFavourites, deleteFavourites,
                         callback, setCallback }) =>{

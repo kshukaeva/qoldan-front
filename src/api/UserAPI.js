@@ -23,7 +23,7 @@ export const putUpdateProfile = async (userData) => {
         const headers = {
             'Authorization': 'Bearer ' + localStorage.getItem('token')
         };
-        const response = await axios.post(
+        const response = await axios.put(
             "http://localhost:8100/api/my-profile",
             userData,
             { headers }

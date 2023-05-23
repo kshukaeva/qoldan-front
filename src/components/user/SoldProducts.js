@@ -1,51 +1,72 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import {getSellOrders, getSoldProducts, putSellConfirm} from "../../api/OrderApi";
 
-const SoldProducts = ({ userData}) => {
-    const [soldStatus, setSoldStatus] = useState('all');
+const SoldProducts = ({ userData }) => {
+    const [confirmedStatus, setConfirmedStatus] = useState(null);
+    const [products, setProducts] = useState([{}]);
+    const [callback, setCallback] = useState(false);
 
-    const handleSoldStatusChange = (status) => {
-        setSoldStatus(status);
+    const handleStatusChange = (status) => {
+        setConfirmedStatus(status);
     };
 
-    const soldItems = userData.sold.filter(
-        (sold) => soldStatus === 'all' || sold.status === soldStatus
-    );
+    const handleSellConfirm = (productId) => {
+        // putSellConfirm(productId)
+        //     .then((response) => {
+        //         alert(response.data);
+        //     })
+        //     .catch((error) => {
+        //         alert(error.response.data);
+        //     })
+        //     .finally(() => {
+        //         setCallback(!callback);
+        //     });
+    };
+
+    useEffect(() => {
+        // getSellOrders(confirmedStatus)
+        //     .then((response) => {
+        //         setProducts(response.data);
+        //     })
+        //     .catch((error) => {
+        //         alert(error.response.data);
+        //     })
+        //     .finally(() => {});
+    }, [callback, confirmedStatus]);
 
     return (
         <div>
             <h3>Sold Products</h3>
             <div className='order-filter'>
                 <div className='status-cards'>
-                    <div
-                        className={`status-card ${soldStatus === 'all' ? 'active' : ''}`}
-                        onClick={() => handleSoldStatusChange('all')}
-                    >
+                    <div className={`status-card ${confirmedStatus === null ? 'active' : ''}`}
+                         onClick={() => handleStatusChange(null)}>
                         All
                     </div>
-                    <div
-                        className={`status-card ${soldStatus === 'progress' ? 'active' : ''}`}
-                        onClick={() => handleSoldStatusChange('progress')}
-                    >
+                    <div className={`status-card ${confirmedStatus === false ? 'active' : ''}`}
+                         onClick={() => handleStatusChange(false)}>
                         In Progress
                     </div>
-                    <div
-                        className={`status-card ${soldStatus === 'completed' ? 'active' : ''}`}
-                        onClick={() => handleSoldStatusChange('completed')}
-                    >
+                    <div className={`status-card ${confirmedStatus === true ? 'active' : ''}`}
+                         onClick={() => handleStatusChange(true)}>
                         Completed
                     </div>
                 </div>
             </div>
             <div className='sold-products'>
                 <ul>
-                    {soldItems.map((item) => (
-                            <li key={item.name}>
-                                <img src={'../img/' + item.imageUrl} alt={item.name} />
+                    {products.map((product) => (
+                            <li key={product.id}>
+                                <img src={'../img/' + product.img} alt={product.title} />
                                 <div className="product-details">
-                                    <p>{item.name}</p>
-                                    <b>KZT {item.price}</b>
+                                    <p>{product.title}</p>
+                                    <b>KZT {product.price}</b>
                                 </div>
-                                <button>Confirm</button>
+                                {!product.sellConfirmed ? (
+                                    <button onClick={handleSellConfirm(product.id)}>Confirm</button>
+                                ) : (
+                                    <button disabled={true}>Confirmed</button>
+                                )}
                             </li>
                         ))}
                 </ul>

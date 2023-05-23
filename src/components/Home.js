@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
-import Items from './Items';
-import {TbArrowNarrowRight} from 'react-icons/tb'
+import Items from './products/Items';
+import {TbArrowNarrowRight} from 'react-icons/tb';
 import useApiCall from "../api/useApiCall";
 import {getProducts} from "../api/ProductsAPI";
+import img from "../img/img.png"
+
 function Home(props) {
   const navigate = useNavigate();
   const [numItemsToShow] = useState(9);
@@ -37,11 +39,15 @@ function Home(props) {
   return (
     <div className='home'>
       <div className='presentation'></div>
-      <Items items={itemsToShow} onAdd={props.onAdd} onRemove={props.onRemove} addFavourites={props.addFavourites} deleteFavourites={props.deleteFavourites} onItemClick={handleItemCardClick}
-             callback={callback} setCallback={setCallback}/>
-      <button onClick={handleSeeAllClick}>All product <TbArrowNarrowRight className='tbnarrow'/></button>
 
-      <Items items={itemsToShow} onAdd={props.onAdd} deleteOrder={props.deleteOrder} addFavourites={props.addFavourites} deleteFavourites={props.deleteFavourites} onItemClick={handleItemCardClick} />
+        <Items items={itemsToShow}
+               onAdd={props.onAdd}
+               onRemove={props.onRemove}
+               addFavourites={props.addFavourites}
+               deleteFavourites={props.deleteFavourites}
+               onItemClick={handleItemCardClick}
+               callback={callback}
+               setCallback={setCallback}/>
         <button onClick={handleSeeAllClick}>
             <span>ALL PRODUCTS</span>
             <TbArrowNarrowRight className='tbnarrow'/>

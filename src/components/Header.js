@@ -46,7 +46,7 @@ export default function Header(props) {
         <FiShoppingCart onClick={() => handleClick('/cart')} className={`shop-cart-button`} />
         <FiHeart onClick={() => handleClick('/fav')} className="fav" />
         {isLoggedIn ? (
-          <img src={'../img/' + 'clothes.jpg'} alt="Logo" onClick={() => handleClick('/user-profile/1')} className="login-icon" />
+          <img src={'../img/' + 'clothes.jpg'} alt="Logo" onClick={() => handleClick('/user-profile')} className="login-icon" />
         ) : (
           <FiUser onClick={() => handleClick('/login')} className="login-icon" />
         )}

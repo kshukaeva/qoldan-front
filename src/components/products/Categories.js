@@ -1,46 +1,46 @@
 import React, { useState, useEffect } from 'react';
-import {getCategories} from '../../api/CategoriesAPI'
+import {getCategories} from '../../api/CategoryAPI'
 import useApiCall from "../../api/useApiCall";
 
 const Categories = ({ chooseCategory }) => {
-  const [categories] = useState([
-    {
-      id: null,
-      title: 'All'
-    },
-    {
-      id: 1,
-      title: 'Clothing and Accessories'
-    },
-    {
-      id: 2,
-      title: 'Electronics'
-    },
-    {
-      id: 3,
-      title: 'Home and Garden'
-    },
-    {
-      id: 4,
-      title: 'Sports and Outdoors'
-    },
-    {
-      id: 5,
-      title: 'Books, Music, and Movies'
-    },
-    {
-      id: 6,
-      title: 'Toys and Games'
-    },
-    {
-      id: 7,
-      title: 'Vehicles'
-    }
-  ]);
+  // const [categories] = useState([
+  //   {
+  //     key: 'all',
+  //     name: 'All'
+  //   },
+  //   {
+  //     key: 'clothing',
+  //     name: 'Clothing and Accessories'
+  //   },
+  //   {
+  //     key: 'electronics',
+  //     name: 'Electronics'
+  //   },
+  //   {
+  //     key: 'home',
+  //     name: 'Home and Garden'
+  //   },
+  //   {
+  //     key: 'sport',
+  //     name: 'Sports and Outdoors'
+  //   },
+  //   {
+  //     key: 'books',
+  //     name: 'Books, Music, and Movies'
+  //   },
+  //   {
+  //     key: 'games',
+  //     name: 'Toys and Games'
+  //   },
+  //   {
+  //     key: 'vehicles',
+  //     name: 'Vehicles'
+  //   }
+  // ]);
 
-  // const [loading, categories, error] = useApiCall(getCategories);
+  const [loading, categories, error] = useApiCall(getCategories);
 
-
+  if (categories) {
     return (
         <div className='categories-container'>
           {categories.map((el) => (
@@ -50,7 +50,7 @@ const Categories = ({ chooseCategory }) => {
           ))}
         </div>
     );
-
+  }
 };
 
 export default Categories;

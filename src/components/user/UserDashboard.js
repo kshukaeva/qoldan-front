@@ -15,8 +15,10 @@ import SoldProducts from "./SoldProducts";
 import {useNavigate} from "react-router-dom";
 import {getProfile} from "../../api/UserAPI";
 const UserDashboard = () => {
+    const storedDisplayData = localStorage.getItem('displayData');
+
     const [userData, setUserData] = useState({});
-    const [displayData, setDisplayData] = useState('myProducts');
+    const [displayData, setDisplayData] = useState(storedDisplayData ? storedDisplayData : 'myProducts');
     const [orderStatus, setOrderStatus] = useState('all');
     const [soldStatus, setSoldStatus] = useState('all');
     const navigate = useNavigate();
@@ -33,6 +35,10 @@ const UserDashboard = () => {
     //     };
     //     fetchData();
     // }, []);
+
+    useEffect(() => {
+        localStorage.setItem('displayData', displayData);
+    }, [displayData]);
 
     const [callbackUser, setCallbackUser] = useState(false);
     useEffect(() => {
@@ -125,7 +131,10 @@ const UserDashboard = () => {
             </div>
             <div className='list-of-products'>
                 {displayData === 'detailProfile' && (
-                    <UserDetails userData={userData} handleSaveChanges={handleSaveChanges} />
+                    <UserDetails userData={userData}
+                                 handleSaveChanges={handleSaveChanges}
+                                 callback={callbackUser}
+                                 setCallback={setCallbackUser}/>
                 )}
                 {displayData === 'address' && <AddressBook userData={userData} />}
                 {displayData === 'myProducts' && <MyProducts userData={userData} />}

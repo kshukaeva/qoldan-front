@@ -1,15 +1,40 @@
-import React, { useState } from 'react';
+import React, {useState, useEffect} from 'react';
 import Categories from './Categories';
 import Items from './Items';
-import Pagination from '../Pagination';
-import { useNavigate } from 'react-router-dom';
-import { BsFilterRight, BsSearch } from 'react-icons/bs';
+import {useNavigate, useParams} from 'react-router-dom';
+import {getProductPages, getProducts} from "../../api/ProductsAPI";
+import {BsFilterRight, BsSearch} from "react-icons/bs";
+import Pagination from "../Pagination";
 
 function AllProduct(props) {
     const navigate = useNavigate();
+    const [ products, setProducts ] = useState([]);
+    const [ callback, setCallback ] = useState(false);
+
     const [showCategories, setShowCategories] = useState(false);
+    const [totalPages, setTotalPages] = useState(1);
     const [currentPage, setCurrentPage] = useState(1); // Current page number
     const itemsPerPage = 16; // Number of items to display per page
+
+    useEffect(() => {
+        getProductPages(itemsPerPage)
+            .then((response) => {
+                setTotalPages(response.data);
+            })
+            .catch((error) => {
+                alert(error.response.data);
+            })
+            .finally(() => {});
+
+        getProducts(itemsPerPage, itemsPerPage * (currentPage - 1))
+            .then((response) => {
+                setProducts(response.data);
+            })
+            .catch((error) => {
+                alert(error.response.data);
+            })
+            .finally(() => {});
+    }, [callback]);
 
     const handleItemCardClick = (itemId) => {
         navigate(`/item/${itemId}`);
@@ -17,13 +42,8 @@ function AllProduct(props) {
 
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
+        setCallback(!callback);
     };
-
-    // Calculate the indexes of the items to be displayed based on the current page and items per page
-    const indexOfLastItem = currentPage * itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = props.currentItems.slice(indexOfFirstItem, indexOfLastItem);
-
     return (
         <div className='all'>
             <div className='all-search-bar'>
@@ -37,18 +57,17 @@ function AllProduct(props) {
                 </div>
             </div>
             {showCategories && <Categories chooseCategory={props.chooseCategory} />}
-            <Items
-                items={currentItems}
-                onAdd={props.onAdd}
-                deleteOrder={props.deleteOrder}
-                addFavourites={props.addFavourites}
-                deleteFavourites={props.deleteFavourites}
-                onItemClick={handleItemCardClick}
-            />
+            <Items items={products}
+                   onAdd={props.onAdd}
+                   onRemove={props.onRemove}
+                   addFavourites={props.addFavourites}
+                   deleteFavourites={props.deleteFavourites}
+                   onItemClick={handleItemCardClick}
+                   callback={callback}
+                   setCallback={setCallback}/>
             <Pagination
                 currentPage={currentPage}
-                itemsPerPage={itemsPerPage}
-                totalItems={props.currentItems.length}
+                totalPages={totalPages}
                 onPageChange={handlePageChange}
             />
         </div>

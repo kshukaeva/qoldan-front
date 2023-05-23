@@ -57,3 +57,19 @@ export const getMyCart = async (limit, offset) => {
         throw error;
     }
 }
+
+export const postBookCart = async (productId) => {
+    try {
+        const params = {}
+        const headers = {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        }
+        const response = await axios.post(
+            "http://localhost:8100/api/my-cart/book",
+            { }, { params, headers }
+        )
+        return response;
+    } catch (error) {
+        throw error;
+    }
+}

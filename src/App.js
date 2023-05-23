@@ -3,23 +3,23 @@ import {Routes, Route } from 'react-router-dom';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./components/Home";
-import Login from "./components/Login";
-import ItemCard from "./components/ItemCard";
-import Products from "./components/AllProduct";
-import Cart from "./components/Cart";
-import Bookmark from './components/Bookmark';
+import Login from "./components/auth/Login";
+import ItemCard from "./components/products/ItemCard";
+import Products from "./components/products/AllProduct";
+import Cart from "./components/cart/Cart";
+import Bookmark from './components/bookmark/Bookmark';
 import UserProfile from './components/UserProfile';
-import Register from './components/Register';
-import AddProduct from './components/AddProduct';
-import ForgotPassword from "./components/ForgetPassword";
+import Register from './components/auth/Register';
+import AddProduct from './components/products/AddProduct';
+import ForgotPassword from "./components/auth/ForgetPassword";
 import useApiCall from "./api/useApiCall";
 import {getProducts} from "./api/ProductsAPI";
 import AboutUs from "./components/AboutUs";
 import Uploaimagetest from "./components/Uploaimagetest";
 import UserDashboard from './components/user/UserDashboard';
 import DonationPage from "./components/donation/DonationPage";
-import CharityPage from "./components/donation/CharityPage";
-import EditProduct from "./components/user/EditProduct";
+// import CharityPage from "./components/donation/CharityPage";
+import EditProduct from "./components/products/EditProduct";
 import MyProducts from "./components/user/MyProducts";
 import {deleteFromCart, postAddToCart} from "./api/CartAPI";
 import {deleteFromWishlist, postAddToWishlist} from "./api/WishlistAPI";
@@ -134,7 +134,7 @@ function App() {
         .then((response) => {
           if (setCallback)
             setCallback(!callback);
-          alert(response.data);
+          // alert(response.data);
         })
         .catch((error) => {
           alert(error.response.data);
@@ -158,7 +158,7 @@ function App() {
         .then((response) => {
           if (setCallback)
             setCallback(!callback);
-          alert(response.data);
+          // alert(response.data);
         })
         .catch((error) => {
           alert(error.response.data);
@@ -173,7 +173,7 @@ function App() {
          .then((response) => {
            if (setCallback)
              setCallback(!callback);
-           alert(response.data);
+           // alert(response.data);
          })
          .catch((error) => {
            console.log(error);
@@ -190,7 +190,7 @@ function App() {
         .then((response) => {
           if (setCallback)
             setCallback(!callback);
-          alert(response.data);
+          // alert(response.data);
         })
         .catch((error) => {
           alert(error.response.data);
@@ -237,7 +237,7 @@ function App() {
             <Route path="/test" element={<Uploaimagetest/>}/>
             <Route path="/user-profile" element={<UserDashboard/>}/>
             <Route path="/donation" element={<DonationPage/>}/>
-            <Route path="/charity/:charityName" element={<CharityPage/>}/>
+            {/*<Route path="/charity/:charityName" element={<CharityPage/>}/>*/}
             <Route path="/edit-product" element={<EditProduct/>}/>
             <Route path="/my-products" element={<MyProducts/>}/>
           </Routes>

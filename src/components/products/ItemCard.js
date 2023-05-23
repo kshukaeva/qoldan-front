@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { useParams } from 'react-router-dom';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import {FiShoppingBag, FiShoppingCart} from 'react-icons/fi';
-import {getProduct} from "../api/ProductsAPI";
+import {getProduct} from "../../api/ProductsAPI";
 
 const ItemCard = ({ items, onAdd, onRemove, addFavourites, deleteFavourites, addToCart, removeFromCart }) => {
   const { id } = useParams();

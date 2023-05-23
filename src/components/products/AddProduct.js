@@ -1,9 +1,9 @@
 import React, {useState, Component, useEffect,} from 'react';
 import axios from 'axios';
-import Uploaimagetest from "./Uploaimagetest";
-import {getCategories} from "../api/CategoryAPI";
-import {getProductTypes} from "../api/ProductTypeAPI";
-import {postProduct} from "../api/ProductsAPI";
+import Uploaimagetest from "../Uploaimagetest";
+import {getCategories} from "../../api/CategoryAPI";
+import {getProductTypes} from "../../api/ProductTypeAPI";
+import {postProduct} from "../../api/ProductsAPI";
 import {useNavigate} from "react-router-dom";
 
 function AddProduct() {

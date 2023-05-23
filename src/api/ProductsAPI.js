@@ -25,6 +25,29 @@ export const getProducts = async (limit = null, offset = null) => {
     }
 }
 
+export const getProductPages = async (perPage) => {
+    try {
+        let params = {
+            perPage: perPage
+        }
+        let headers = {}
+        if (localStorage.getItem("token")) {
+            headers = {
+                ...headers,
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            }
+        }
+
+        const response = await axios.get(
+            "http://localhost:8100/api/product/pages",
+            { params, headers },
+        )
+        return response;
+    } catch (error) {
+        throw error;
+    }
+}
+
 export const getProduct = async (id) => {
     try {
         let params = {}

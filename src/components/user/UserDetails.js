@@ -1,7 +1,7 @@
 import React from 'react';
 import {putUpdateProfile} from "../../api/UserAPI";
 
-const UserDetails = ({ userData }) => {
+const UserDetails = ({ userData, callback, setCallback }) => {
     const handleSaveChanges = () => {
         userData.firstname = document.getElementById('firstname').value;
         userData.lastname = document.getElementById('lastname').value;
@@ -15,7 +15,9 @@ const UserDetails = ({ userData }) => {
             .catch((error) => {
                 alert(error.response.data);
             })
-            .finally(() => {});
+            .finally(() => {
+                setCallback(!callback);
+            });
     }
 
     return (
