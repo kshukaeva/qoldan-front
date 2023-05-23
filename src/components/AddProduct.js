@@ -1,65 +1,82 @@
-import React, { useState, Component, } from 'react';
+import React, {useState, Component, useEffect,} from 'react';
 import axios from 'axios';
 import Uploaimagetest from "./Uploaimagetest";
-
-// const initialValues = {
-//   productName: "",
-//   productDescription: "",
-//   productPrice: 0,
-//   productQuantity: 0,
-//   productCategory: "",
-//   productImg: "",
-// };
-
+import {getCategories} from "../api/CategoryAPI";
+import {getProductTypes} from "../api/ProductTypeAPI";
+import {postProduct} from "../api/ProductsAPI";
+import {useNavigate} from "react-router-dom";
 
 function AddProduct() {
-  const [productName, setProductName] = useState('');
-  const [productDescription, setProductDescription] = useState('');
-  const [productPrice, setProductPrice] = useState('');
-  const [productImage, setProductImage] = useState('');
-  const [productQuantity,setProductQuantity] = useState('')
-  const [selectedType, setSelectedType] = useState(''); // keep track of the selected type
-  const categories = ['Electronics', 'Clothing', 'Home', 'Beauty'];
-  const handleTypeChange = (event) => {
-    setSelectedType(event.target.value); // update the selected type when user changes the radio button
+
+  const [title, setTitle] = useState(null);
+  const [summary, setSummary] = useState(null);
+  const [img, setImg] = useState("keyboard1.jpeg");
+  const [category, setCategory] = useState(null);
+  const [price, setPrice] = useState(null);
+  const [type, setType] = useState(null);
+
+  const [categories, setCategories] = useState([]);
+  const [types, setTypes] = useState([]);
+
+  const [image, setImage] = useState(null)
+  const [fileName, setFileName] = useState("No selected file");
+
+  const navigate = useNavigate();
+
+  const handleTitleOnChange = (event) => {
+    setTitle(event.target.value);
   }
-  // const [values, setValues] = useState(initialValues);
-  //
-  // const handleInputChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setValues({
-  //     ...values,
-  //     [name]: value,
-  //   });
-  // };
-
-
-
-  const handleProductNameChange = (event) => {
-    setProductName(event.target.value);
+  const handleSummaryOnChange = (event) => {
+    setSummary(event.target.value);
   }
-
-  const handleProductDescriptionChange = (event) => {
-    setProductDescription(event.target.value);
+  const handlePriceOnChange = (event) => {
+    setPrice(event.target.value);
   }
-
-  const handleProductPriceChange = (event) => {
-    setProductPrice(event.target.value);
+  const handleCategoryOnChange = (event) => {
+    setCategory(event.target.value);
+  }
+  const handleTypeOnChange = (event) => {
+    setType(event.target.value);
   }
 
-  const [selectedCategory, setSelectedCategory] = useState('');
-
-  const handleCategoryChange = (event) => {
-    setSelectedCategory(event.target.value);
-  }
-
-  const handleProductImageChange = (event) => {
-    setProductImage(event.target.value);
-  }
+  useEffect(() => {
+    getCategories()
+        .then((response) => {
+          setCategories(response.data);
+        })
+        .catch((error) => {
+          alert(error.response.data);
+        })
+        .finally(() => {});
+    getProductTypes()
+        .then((response) => {
+          setTypes(response.data);
+        })
+        .catch((error) => {
+          alert(error.response.data);
+        })
+        .finally(() => {});
+  }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Add code to submit product data to server
+
+    const product = {
+      title: title,
+      summary: summary,
+      img: img,
+      category: category,
+      price: price,
+      type: type
+    }
+    postProduct(product)
+        .then((response) => {
+          navigate(`/item/${response.data}`);
+        })
+        .catch((error) => {
+          alert(error.response.data);
+        })
+        .finally(() => {});
   }
 
   return (
@@ -72,32 +89,43 @@ function AddProduct() {
                 <label>
 
                   Product Name:
-                  <input type="text" value={productName} onChange={handleProductNameChange} />
+                  <input type="text" value={title} onChange={handleTitleOnChange}/>
                 </label>
                 <label>
                   Product Description:
-                  <textarea style={{height: '135px'}} value={productDescription} onChange={handleProductDescriptionChange} />
+                  <textarea style={{height: '135px'}} value={summary} onChange={handleSummaryOnChange} />
                 </label>
 
                 <label>
                   Price:
-                  <input type="number" min="0" value={productPrice} onChange={handleProductPriceChange} />
+                  <input type="number" min="1" value={price} onChange={handlePriceOnChange} />
                 </label>
               </div>
               <div className='form-col2'>
                 <label>
                   Image URL:
                   {/*<input type="text" value={productImage} onChange={handleProductImageChange} />*/}
-                  <Uploaimagetest></Uploaimagetest>
+                  <Uploaimagetest image={image} setImage={setImage} fileName={fileName} setFileName={setFileName} />
                 </label>
 
                 <label>
                   Category:
-                  <select value={selectedCategory} onChange={handleCategoryChange}>
+                  <select value={category} onChange={handleCategoryOnChange} >
                     <option value="">Select a category</option>
                     {categories.map((category) => (
-                        <option key={category} value={category}>
-                          {category}
+                        <option key={category.title} value={category.title}>
+                          {category.title}
+                        </option>
+                    ))}
+                  </select>
+                </label>
+                <label>
+                  Product Type:
+                  <select value={type} onChange={handleTypeOnChange} >
+                    <option value="">Select a type</option>
+                    {types.map((category) => (
+                        <option key={category.title} value={category.title}>
+                          {category.title}
                         </option>
                     ))}
                   </select>
@@ -105,32 +133,32 @@ function AddProduct() {
               </div>
 
             </div>
-            <div className='check-box-row'>
-              <div className='check-box-col1'>
-                <label>
-                  <input
-                      type="radio"
-                      name="product-type"
-                      value="Vintage"
-                      checked={selectedType === 'Vintage'}
-                      onChange={handleTypeChange}
-                  />
-                  Vintage
-                </label>
-              </div>
-              <div className='check-box-col2'>
-                <label>
-                  <input
-                      type="radio"
-                      name="product-type"
-                      value="Secondhand"
-                      checked={selectedType === 'Secondhand'}
-                      onChange={handleTypeChange}
-                  />
-                  Secondhand
-                </label>
-              </div>
-            </div>
+            {/*<div className='check-box-row'>*/}
+            {/*  <div className='check-box-col1'>*/}
+            {/*    <label>*/}
+            {/*      <input*/}
+            {/*          type="radio"*/}
+            {/*          name="product-type"*/}
+            {/*          value="Vintage"*/}
+            {/*          checked={selectedType === 'Vintage'}*/}
+            {/*          onChange={handleTypeChange}*/}
+            {/*      />*/}
+            {/*      Vintage*/}
+            {/*    </label>*/}
+            {/*  </div>*/}
+            {/*  <div className='check-box-col2'>*/}
+            {/*    <label>*/}
+            {/*      <input*/}
+            {/*          type="radio"*/}
+            {/*          name="product-type"*/}
+            {/*          value="Secondhand"*/}
+            {/*          checked={selectedType === 'Secondhand'}*/}
+            {/*          onChange={handleTypeChange}*/}
+            {/*      />*/}
+            {/*      Secondhand*/}
+            {/*    </label>*/}
+            {/*  </div>*/}
+            {/*</div>*/}
             <button type="submit" >Submit</button>
 
           </form>

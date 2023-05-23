@@ -25,11 +25,8 @@ function Login() {
       localStorage.setItem('username', email);
       navigate('/user-profile');
     } catch (error) {
-      if (error.response) {
-        setError(error.response.data);
-      } else {
-        console.log(error);
-      }
+      setError("Incorrect email or password");
+      console.log(error);
     }
   };
   

@@ -21,6 +21,8 @@ import DonationPage from "./components/donation/DonationPage";
 import CharityPage from "./components/donation/CharityPage";
 import EditProduct from "./components/user/EditProduct";
 import MyProducts from "./components/user/MyProducts";
+import {deleteFromCart, postAddToCart} from "./api/CartAPI";
+import {deleteFromWishlist, postAddToWishlist} from "./api/WishlistAPI";
 
 function App() {
   const [orders, setOrders] = useState([]);
@@ -127,58 +129,120 @@ function App() {
     setOrders(orders.filter(el => el.id !== id));
   }
 
-  function addToOrder(item) {
-    let isInArray = false;
-    orders.forEach(el => {
-      if (el.id === item.id) {
-        isInArray = true;
-      }
-    });
-    if (!isInArray) {
-      setOrders([...orders, item]);
-    }
+  function addToCart(productId, callback, setCallback) {
+    postAddToCart(productId)
+        .then((response) => {
+          if (setCallback)
+            setCallback(!callback);
+          alert(response.data);
+        })
+        .catch((error) => {
+          alert(error.response.data);
+        })
+        .finally(() => {
+
+        });
+    // let isInArray = false;
+    // orders.forEach(el => {
+    //   if (el.id === item.id) {
+    //     isInArray = true;
+    //   }
+    // });
+    // if (!isInArray) {
+    //   setOrders([...orders, item]);
+    // }
   }
 
-   function deleteFavourites(id) {
-    setFavourites(favourites.filter(el => el.id !== id));
+  function removeFromCart(productId, callback, setCallback) {
+    deleteFromCart(productId)
+        .then((response) => {
+          if (setCallback)
+            setCallback(!callback);
+          alert(response.data);
+        })
+        .catch((error) => {
+          alert(error.response.data);
+        })
+        .finally(() => {
+
+        });
   }
 
-  function addToFavourites(item) {
-    let isInArray = false;
-    favourites.forEach(el => {
-      if (el.id === item.id) {
-        isInArray = true;
-      }
-    });
-    if (!isInArray) {
-      setFavourites([...favourites, item]);
-    }
+   function deleteFavourites(productId, callback, setCallback) {
+     deleteFromWishlist(productId)
+         .then((response) => {
+           if (setCallback)
+             setCallback(!callback);
+           alert(response.data);
+         })
+         .catch((error) => {
+           console.log(error);
+           alert(error.response.data);
+         })
+         .finally(() => {
+
+         });
+    // setFavourites(favourites.filter(el => el.id !== id));
+  }
+
+  function addToFavourites(productId, callback, setCallback) {
+    postAddToWishlist(productId)
+        .then((response) => {
+          if (setCallback)
+            setCallback(!callback);
+          alert(response.data);
+        })
+        .catch((error) => {
+          alert(error.response.data);
+        })
+        .finally(() => {
+
+        });
+    // let isInArray = false;
+    // favourites.forEach(el => {
+    //   if (el.id === item.id) {
+    //     isInArray = true;
+    //   }
+    // });
+    // if (!isInArray) {
+    //   setFavourites([...favourites, item]);
+    // }
   }
 
   return (
-    <div>
-    <Header/>
-      <main>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/" element={<Home currentItems={items} onAdd={addToOrder} addFavourites={addToFavourites} deleteFavourites={deleteFavourites}/>} />
-          <Route path="/all" element={<Products currentItems={currentItems} onAdd={addToOrder} addFavourites={addToFavourites} chooseCategory={chooseCategory} deleteFavourites={deleteFavourites}/>} />
-          <Route path="/item/:id" element={<ItemCard items={items} onAdd={addToOrder} addFavourites={addToFavourites} deleteFavourites={deleteFavourites}  />} />
-          <Route path="/cart" element={<Cart orders={orders} onDelete={deleteOrder} />} />
-          <Route path="/fav" element={<Bookmark favourites={favourites} onAdd={addToOrder} addFavourites={addToFavourites} deleteFavourites={deleteFavourites} />} />
-          <Route path="/userprofile" element={<UserProfile/>}/>
-          <Route path="/addproduct" element={<AddProduct/>}/>
-          <Route path="/about-us" element={<AboutUs/>}/>
-          <Route path="/test" element={<Uploaimagetest/>}/>
-          <Route path="/user-profile" element={<UserDashboard/>}/>
-          <Route path="/donation" element={<DonationPage/>} />
-          <Route path="/charity/:charityName" element={<CharityPage/>} />
-          <Route path="/edit-product" element={<EditProduct/>} />
-          <Route path="/my-products" element={<MyProducts/>} />
-        </Routes>
-      </main>
-      <Footer/>
+      <div>
+        <Header/>
+        <main>
+          <Routes>
+            <Route path="/login" element={<Login/>}/>
+            <Route path="/register" element={<Register/>}/>
+            <Route path="/" element={<Home currentItems={items} onAdd={addToCart} onRemove={removeFromCart}
+                                           addFavourites={addToFavourites} deleteFavourites={deleteFavourites}/>}/>
+            <Route path="/all"
+                   element={<Products currentItems={currentItems} onAdd={addToCart} onRemove={removeFromCart}
+                                      addFavourites={addToFavourites} chooseCategory={chooseCategory}
+                                      deleteFavourites={deleteFavourites}/>}/>
+            <Route path="/item/:id" element={<ItemCard items={items} onAdd={addToCart} onRemove={removeFromCart}
+                                                       addFavourites={addToFavourites}
+                                                       deleteFavourites={deleteFavourites}
+                                                       addToCart={addToCart} removeFromCart={removeFromCart}/>}/>
+            <Route path="/cart" element={<Cart orders={orders} setOrders={setOrders} onDelete={removeFromCart}/>}/>
+            <Route path="/fav" element={<Bookmark favourites={favourites} setFavourites={setFavourites}
+                                                  onAdd={addToCart} onRemove={removeFromCart}
+                                                  addFavourites={addToFavourites}
+                                                  deleteFavourites={deleteFavourites}/>}/>
+            {/*<Route path="/userprofile" element={<UserProfile/>}/>*/}
+            <Route path="/addproduct" element={<AddProduct/>}/>
+            <Route path="/about-us" element={<AboutUs/>}/>
+            <Route path="/test" element={<Uploaimagetest/>}/>
+            <Route path="/user-profile" element={<UserDashboard/>}/>
+            <Route path="/donation" element={<DonationPage/>}/>
+            <Route path="/charity/:charityName" element={<CharityPage/>}/>
+            <Route path="/edit-product" element={<EditProduct/>}/>
+            <Route path="/my-products" element={<MyProducts/>}/>
+          </Routes>
+        </main>
+        <Footer/>
       </div>
   );
 }

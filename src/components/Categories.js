@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {getCategories} from '../api/CategoriesAPI'
+import {getCategories} from '../api/CategoryAPI'
 import useApiCall from "../api/useApiCall";
 
 const Categories = ({ chooseCategory }) => {

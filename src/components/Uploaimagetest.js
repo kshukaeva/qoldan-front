@@ -4,10 +4,10 @@ import {MdCloudUpload, MdDelete} from "react-icons/md";
 import  {AiFillFileImage} from "react-icons/ai"
 
 
-function Uploaimagetest(){
+function Uploaimagetest({ image, setImage, fileName, setFileName }){
 
-    const [image, setImage] = useState(null)
-    const [fileName, setFileName] = useState("No selected file")
+    // const [image, setImage] = useState(null)
+    // const [fileName, setFileName] = useState("No selected file");
 
     return(
         <main>

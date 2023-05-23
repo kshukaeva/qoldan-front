@@ -24,7 +24,7 @@ export default function Header(props) {
     navigate(path);
   };
 
-  const isLoggedIn = true;
+  const isLoggedIn = localStorage.getItem("token");
 
   return (
     <header>

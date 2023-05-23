@@ -1,28 +1,45 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Order from './Order';
 import {useNavigate} from "react-router-dom";
+import {getMyCart} from "../api/CartAPI";
 
-const Cart = ({ orders, onDelete }) => {
+const Cart = ({ onDelete }) => {
   const navigate = useNavigate();
   const handleItemCardClick = (itemId) => {
     navigate(`/item/${itemId}`);
   };
-  let summa = 0;
-  orders.forEach(el => summa+=Number.parseFloat(el.price));
+
+  const [callback, setCallback] = useState(false);
+  const [cart, setCart] = useState({
+      total: 0,
+      products: [{}]
+  });
+
+  useEffect(() => {
+      getMyCart()
+          .then((response) => {
+              setCart(response.data);
+          })
+          .catch((error) => {
+              alert(error.response.data);
+          })
+          .finally(() => {})
+  }, [callback]);
 
   return (
       <div className='main-cart-card'>
         <div className='card-cart'>
           <span className='fc-title'>Shopping Cart</span>
-          {orders.length > 0 ? (
+          {cart.products.length > 0 ? (
               <div>
                   <div>
-                {orders.map((el) => (
-                    <Order key={el.id} item={el} onDelete={onDelete} onItemClick={handleItemCardClick} />
+                {cart.products.map((el) => (
+                    <Order key={el.id} item={el} onDelete={onDelete} onItemClick={handleItemCardClick}
+                           callback={callback} setCallback={setCallback}/>
                 ))}
               </div>
                   <div className='cart-price'>
-                      <p>Total: {new Intl.NumberFormat().format(summa)} KZT</p>
+                      <p>Total: {new Intl.NumberFormat().format(cart.total)} KZT</p>
                   </div>
               </div>
           ) : (

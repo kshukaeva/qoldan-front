@@ -12,24 +12,39 @@ import AddressBook from './AddressBook';
 import MyProducts from './MyProducts';
 import MyOrders from './MyOrders';
 import SoldProducts from "./SoldProducts";
+import {useNavigate} from "react-router-dom";
+import {getProfile} from "../../api/UserAPI";
 const UserDashboard = () => {
     const [userData, setUserData] = useState({});
     const [displayData, setDisplayData] = useState('myProducts');
     const [orderStatus, setOrderStatus] = useState('all');
     const [soldStatus, setSoldStatus] = useState('all');
+    const navigate = useNavigate();
 
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         try {
+    //             const response = await fetch('/userData.json');
+    //             const data = await response.json();
+    //             setUserData(data);
+    //         } catch (error) {
+    //             console.error(error);
+    //         }
+    //     };
+    //     fetchData();
+    // }, []);
+
+    const [callbackUser, setCallbackUser] = useState(false);
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch('/userData.json');
-                const data = await response.json();
-                setUserData(data);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-        fetchData();
-    }, []);
+        getProfile()
+            .then((response) => {
+                setUserData(response.data);
+            })
+            .catch((error) => {
+                alert(error.response.data);
+            })
+            .finally(() => {});
+    }, [callbackUser]);
 
     const handleDisplayDataChange = (data) => {
         setDisplayData(data);
@@ -65,16 +80,22 @@ const UserDashboard = () => {
 
     };
 
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        navigate('/login');
+    }
+
     return (
         <div className='user-main-dash'>
             <div className='user-profile-left'>
                 <div className='user-profile-dash'>
-                    <img src={'../img/' + userData.imageUrl} alt="user-icon"/>
+                    <img src={'../img/clothes.jpg'} alt="user-icon"/>
                     <p>Welcome,</p>
-                    <p>{userData.firstName}!</p>
+                    <p>{userData.firstname} {userData.lastname}!</p>
                     <p className='email'>Your email address is {userData.email}.</p>
-                    <p className='age'>You are {userData.age} years old.</p>
-                    <p className='location'>You are located in {userData.city}.</p>
+                    <p className='mobile'>Your mobile phone is {userData.mobile}.</p>
+                    {/*<p className='age'>You are {userData.age} years old.</p>*/}
+                    {/*<p className='location'>You are located in {userData.city}.</p>*/}
                 </div>
                 <div className='list-of-separation'>
                     <div className='buttn' onClick={() => handleDisplayDataChange('detailProfile')}><FaRegAddressCard/> My Details</div>
@@ -87,7 +108,7 @@ const UserDashboard = () => {
                     <div className='buttn' onClick={() => handleDisplayDataChange('sold')}><CiInboxOut/> Sold Products</div>
                 </div>
                 <div className='list-of-separation'>
-                    <div className='buttn'><BiLogOut/> Sign Out</div>
+                    <div className='buttn' onClick={() => handleLogout()}><BiLogOut/> Sign Out</div>
                 </div>
             </div>
             <div className='list-of-products'>

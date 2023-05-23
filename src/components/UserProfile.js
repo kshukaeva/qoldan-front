@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
+import {getProfile} from "../api/UserAPI";
 // import './UserProfile.css';
 
 function UserProfile() {
   const [profileImg, setProfileImg] = useState(null); // keep track of profile photo
   const [userInfo, setUserInfo] = useState({ // keep track of user information
-    name: 'John',
+    firstname: 'John',
+    lastname: 'Stones',
     email: 'test@gmail.com',
-    phone: '',
+    mobile: '',
     address: '',
   });
   const [activeOrders, setActiveOrders] = useState([]); // keep track of active orders
@@ -49,14 +51,14 @@ function UserProfile() {
             <input type="file" onChange={handleProfileImgChange} accept="image/*" />
           </div>
           <div className="UserProfile-userInfo">
-            <h1>{userInfo.name}</h1>
+            <h1>{userInfo.firstname} + " " + {userInfo.lastname}</h1>
             <label>
               Email:
               <input type="email" name="email" value={userInfo.email} onChange={handleUserInfoChange} />
             </label>
             <label>
               Phone:
-              <input type="tel" name="phone" value={userInfo.phone} onChange={handleUserInfoChange} />
+              <input type="tel" name="phone" value={userInfo.mobile} onChange={handleUserInfoChange} />
             </label>
             <label>
               Address:

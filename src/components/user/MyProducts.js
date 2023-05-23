@@ -1,14 +1,28 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineEdit } from 'react-icons/ai';
 import { MdDeleteOutline } from 'react-icons/md';
+import {getMyProducts} from "../../api/ProductsAPI";
 
 const MyProducts = ({ userData }) => {
     const navigate = useNavigate();
 
-    const handleEditProduct = (productId) => {
-        navigate(`/edit-product`);
-    };
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        getMyProducts()
+            .then((response) => {
+                setProducts(response.data);
+            })
+            .catch((error) => {
+                alert(error.response.data);
+            })
+            .finally(() => {});
+    }, []);
+
+    // const handleEditProduct = (productId) => {
+    //     navigate(`/edit-product`);
+    // };
 
     const handleDeleteProduct = (productId) => {
         // Perform delete product logic
@@ -24,24 +38,24 @@ const MyProducts = ({ userData }) => {
                 </div>
             </div>
             <ul>
-                {userData.myProducts &&
-                    userData.myProducts.map((item) => (
+                {products &&
+                    products.map((item) => (
                         <li key={item.id}>
                             <div className="my-products-info">
-                                <img src={'../img/' + item.imageUrl} alt={item.name} />
+                                <img src={'../img/' + item.img} alt={item.title} />
                                 <div className="my-products-inf">
-                                    <p>{item.name}</p>
+                                    <p>{item.title}</p>
                                     <b>KZT {item.price}</b>
                                 </div>
                             </div>
                             <div className="my-products-edit">
                                 <AiOutlineEdit
                                     className="product-edit-icon"
-                                    onClick={() => handleEditProduct(item.id)}
+                                    // onClick={() => handleEditProduct(item.id)}
                                 />
                                 <MdDeleteOutline
                                     className="product-delete-icon"
-                                    onClick={() => handleDeleteProduct(item.id)}
+                                    // onClick={() => handleDeleteProduct(item.id)}
                                 />
                             </div>
                         </li>
