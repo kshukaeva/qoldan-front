@@ -40,6 +40,24 @@ function Home(props) {
       <Items items={itemsToShow} onAdd={props.onAdd} onRemove={props.onRemove} addFavourites={props.addFavourites} deleteFavourites={props.deleteFavourites} onItemClick={handleItemCardClick}
              callback={callback} setCallback={setCallback}/>
       <button onClick={handleSeeAllClick}>All product <TbArrowNarrowRight className='tbnarrow'/></button>
+
+      <Items items={itemsToShow} onAdd={props.onAdd} deleteOrder={props.deleteOrder} addFavourites={props.addFavourites} deleteFavourites={props.deleteFavourites} onItemClick={handleItemCardClick} />
+        <button onClick={handleSeeAllClick}>
+            <span>ALL PRODUCTS</span>
+            <TbArrowNarrowRight className='tbnarrow'/>
+        </button>
+
+        <div className='team'>
+            <div className='team-image'>
+                <img src={img} alt="img-team"/>
+            </div>
+            <div className='team-text'>
+                We are a team of students who strive to create useful and necessary
+                applications and websites for people. Our goal is to make a more
+                convenient and accessible marketplace for vintage and supported
+                products, where users can make purchases without any difficulties.
+            </div>
+        </div>
     </div>
   );
 }

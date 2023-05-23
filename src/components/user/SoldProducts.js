@@ -1,7 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 
-const SoldProducts = ({ userData, soldStatus, handleSoldStatusChange }) => {
-    const soldItems = userData.sold.filter((sold) => soldStatus === 'all' || sold.status === soldStatus);
+const SoldProducts = ({ userData}) => {
+    const [soldStatus, setSoldStatus] = useState('all');
+
+    const handleSoldStatusChange = (status) => {
+        setSoldStatus(status);
+    };
+
+    const soldItems = userData.sold.filter(
+        (sold) => soldStatus === 'all' || sold.status === soldStatus
+    );
 
     return (
         <div>
@@ -30,12 +38,14 @@ const SoldProducts = ({ userData, soldStatus, handleSoldStatusChange }) => {
             </div>
             <div className='sold-products'>
                 <ul>
-                    {soldItems &&
-                        soldItems.map((item) => (
+                    {soldItems.map((item) => (
                             <li key={item.name}>
                                 <img src={'../img/' + item.imageUrl} alt={item.name} />
-                                <p>{item.name}</p>
-                                <b>KZT {item.price}</b>
+                                <div className="product-details">
+                                    <p>{item.name}</p>
+                                    <b>KZT {item.price}</b>
+                                </div>
+                                <button>Confirm</button>
                             </li>
                         ))}
                 </ul>

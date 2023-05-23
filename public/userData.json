@@ -1,4 +1,7 @@
-{
+[
+  {
+  "userID": 1,
+  "role": "user",
   "username": "Johndoe",
   "firstName": "John",
   "lastName": "Doe",
@@ -40,7 +43,6 @@
       ]
     }
   ],
-
   "sold": [
     {
       "name": "Product 1",
@@ -84,4 +86,16 @@
       "imageUrl": "clothes.jpg"
     }
   ]
-}
+},
+  {
+    "userID": 2,
+    "role": "admin",
+    "username": "Admin1",
+    "firstName": "Admin",
+    "lastName": "One",
+    "imageUrl": "clothes.jpg",
+    "email": "admin1@example.com",
+    "age": 40,
+    "city": "New York City"
+  }
+]

@@ -98,14 +98,26 @@ const UserDashboard = () => {
                     {/*<p className='location'>You are located in {userData.city}.</p>*/}
                 </div>
                 <div className='list-of-separation'>
-                    <div className='buttn' onClick={() => handleDisplayDataChange('detailProfile')}><FaRegAddressCard/> My Details</div>
-                    <div className='buttn' onClick={() => handleDisplayDataChange('address')}><TbHomeEdit/> Address Book</div>
-                    <div className='buttn' onClick={() => handleDisplayDataChange('payment')}><MdPayment/> Payment Method</div>
+                    <div className='buttn' onClick={() => handleDisplayDataChange('detailProfile')}>
+                        <FaRegAddressCard /> My Details
+                    </div>
+                    <div className='buttn' onClick={() => handleDisplayDataChange('address')}>
+                        <TbHomeEdit /> Address Book
+                    </div>
+                    <div className='buttn' onClick={() => handleDisplayDataChange('payment')}>
+                        <MdPayment /> Payment Method
+                    </div>
                 </div>
                 <div className='list-of-separation'>
-                    <div className='buttn' onClick={() => handleDisplayDataChange('myProducts')}><BsBoxSeam/> My Products</div>
-                    <div className='buttn' onClick={() => handleDisplayDataChange('orders')}><CiInboxIn/> My Orders</div>
-                    <div className='buttn' onClick={() => handleDisplayDataChange('sold')}><CiInboxOut/> Sold Products</div>
+                    <div className='buttn' onClick={() => handleDisplayDataChange('myProducts')}>
+                        <BsBoxSeam /> My Products
+                    </div>
+                    <div className='buttn' onClick={() => handleDisplayDataChange('orders')}>
+                        <CiInboxIn /> My Orders
+                    </div>
+                    <div className='buttn' onClick={() => handleDisplayDataChange('sold')}>
+                        <CiInboxOut /> Sold Products
+                    </div>
                 </div>
                 <div className='list-of-separation'>
                     <div className='buttn' onClick={() => handleLogout()}><BiLogOut/> Sign Out</div>
