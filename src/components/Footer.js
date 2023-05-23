@@ -1,7 +1,12 @@
 import React from 'react';
 import {RiFacebookCircleLine,RiInstagramLine, RiTwitterFill} from 'react-icons/ri';
-
+import {useNavigate} from "react-router-dom";
 export default function Footer() {
+  const navigate = useNavigate();
+  const handleClick = (path) => {
+    navigate(path);
+  };
+
   return (
     <footer>
       <div className='container'>
@@ -19,7 +24,7 @@ export default function Footer() {
             <div>
               <h4>Information</h4>
               <ul>
-                <li>About</li>
+                <li onClick={() => handleClick('/about-us')}>About</li>
                 <li>Product</li>
               </ul>
             </div>

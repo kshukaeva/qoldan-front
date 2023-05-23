@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import './UserDashboard.css';
 
 import {FaRegAddressCard} from 'react-icons/fa';
@@ -13,63 +14,34 @@ import MyProducts from './MyProducts';
 import MyOrders from './MyOrders';
 import SoldProducts from "./SoldProducts";
 const UserDashboard = () => {
+    const { userID } = useParams();
     const [userData, setUserData] = useState({});
-    const [displayData, setDisplayData] = useState('myProducts');
-    const [orderStatus, setOrderStatus] = useState('all');
-    const [soldStatus, setSoldStatus] = useState('all');
+    const [displayData, setDisplayData] = useState('');
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await fetch('/userData.json');
                 const data = await response.json();
-                setUserData(data);
+                const user = data.find((user) => user.userID === parseInt(userID));
+                setUserData(user);
             } catch (error) {
                 console.error(error);
             }
         };
+
         fetchData();
-    }, []);
+    }, [userID]);
 
     const handleDisplayDataChange = (data) => {
         setDisplayData(data);
-    };
-
-    const handleOrderStatusChange = (status) => {
-        setOrderStatus(status);
-    };
-
-    const handleSoldStatusChange = (status) => {
-        setSoldStatus(status);
-    };
-
-    const handleSaveChanges = () => {
-        // Retrieve updated values from the input fields
-        const firstName = document.getElementById('firstName').value;
-        const lastName = document.getElementById('lastName').value;
-        const email = document.getElementById('email').value;
-        const day = document.getElementById('day').value;
-        const month = document.getElementById('month').value;
-        const year = document.getElementById('year').value;
-
-        // Update the userData state with the new values
-        setUserData({
-            ...userData,
-            firstName,
-            lastName,
-            email,
-            day,
-            month,
-            year,
-        });
-
     };
 
     return (
         <div className='user-main-dash'>
             <div className='user-profile-left'>
                 <div className='user-profile-dash'>
-                    <img src={'../img/' + userData.imageUrl} alt="user-icon"/>
+                    <img src={'../img/' + userData.imageUrl} alt='user-icon' />
                     <p>Welcome,</p>
                     <p>{userData.firstName}!</p>
                     <p className='email'>Your email address is {userData.email}.</p>
@@ -77,39 +49,39 @@ const UserDashboard = () => {
                     <p className='location'>You are located in {userData.city}.</p>
                 </div>
                 <div className='list-of-separation'>
-                    <div className='buttn' onClick={() => handleDisplayDataChange('detailProfile')}><FaRegAddressCard/> My Details</div>
-                    <div className='buttn' onClick={() => handleDisplayDataChange('address')}><TbHomeEdit/> Address Book</div>
-                    <div className='buttn' onClick={() => handleDisplayDataChange('payment')}><MdPayment/> Payment Method</div>
+                    <div className='buttn' onClick={() => handleDisplayDataChange('detailProfile')}>
+                        <FaRegAddressCard /> My Details
+                    </div>
+                    <div className='buttn' onClick={() => handleDisplayDataChange('address')}>
+                        <TbHomeEdit /> Address Book
+                    </div>
+                    <div className='buttn' onClick={() => handleDisplayDataChange('payment')}>
+                        <MdPayment /> Payment Method
+                    </div>
                 </div>
                 <div className='list-of-separation'>
-                    <div className='buttn' onClick={() => handleDisplayDataChange('myProducts')}><BsBoxSeam/> My Products</div>
-                    <div className='buttn' onClick={() => handleDisplayDataChange('orders')}><CiInboxIn/> My Orders</div>
-                    <div className='buttn' onClick={() => handleDisplayDataChange('sold')}><CiInboxOut/> Sold Products</div>
+                    <div className='buttn' onClick={() => handleDisplayDataChange('myProducts')}>
+                        <BsBoxSeam /> My Products
+                    </div>
+                    <div className='buttn' onClick={() => handleDisplayDataChange('orders')}>
+                        <CiInboxIn /> My Orders
+                    </div>
+                    <div className='buttn' onClick={() => handleDisplayDataChange('sold')}>
+                        <CiInboxOut /> Sold Products
+                    </div>
                 </div>
                 <div className='list-of-separation'>
-                    <div className='buttn'><BiLogOut/> Sign Out</div>
+                    <div className='buttn'>
+                        <BiLogOut /> Sign Out
+                    </div>
                 </div>
             </div>
             <div className='list-of-products'>
-                {displayData === 'detailProfile' && (
-                    <UserDetails userData={userData} handleSaveChanges={handleSaveChanges} />
-                )}
+                {displayData === 'detailProfile' && <UserDetails userData={userData} />}
                 {displayData === 'address' && <AddressBook userData={userData} />}
                 {displayData === 'myProducts' && <MyProducts userData={userData} />}
-                {displayData === 'orders' && (
-                    <MyOrders
-                        userData={userData}
-                        orderStatus={orderStatus}
-                        handleOrderStatusChange={handleOrderStatusChange}
-                    />
-                )}
-                {displayData === 'sold' && (
-                    <SoldProducts
-                        userData={userData}
-                        soldStatus={soldStatus}
-                        handleSoldStatusChange={handleSoldStatusChange}
-                    />
-                )}
+                {displayData === 'orders' && <MyOrders userData={userData} />}
+                {displayData === 'sold' && <SoldProducts userData={userData} />}
             </div>
         </div>
     );

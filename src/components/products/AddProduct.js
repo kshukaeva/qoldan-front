@@ -1,6 +1,6 @@
 import React, { useState, Component, } from 'react';
 import axios from 'axios';
-import Uploaimagetest from "./Uploaimagetest";
+import Uploaimagetest from "../Uploaimagetest";
 
 // const initialValues = {
 //   productName: "",

@@ -10,7 +10,6 @@
 /****************************************************/
 .user-profile-left{
     width: 30%;
-
 }
 
 /****************************************************/
@@ -306,6 +305,9 @@
     display: flex;
     align-items: center;
     margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 7px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .sold-products img {
@@ -314,11 +316,25 @@
     margin-right: 10px;
 }
 
-.sold-products p {
+.sold-products p,.sold-products b  {
     margin: 0;
     font-weight: bold;
 }
 
-.sold-products b {
+.sold-products button {
     margin-left: auto;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.sold-products button:hover {
+    background-color: #45a049;
+}
+
+.sold-products button:focus {
+    outline: none;
 }

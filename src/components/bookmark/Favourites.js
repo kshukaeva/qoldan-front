@@ -20,7 +20,7 @@ const Favourites = ({ item, onAdd, onItemClick, isFavourite, addFavourites, dele
   return (
     <div className='fav-item'>
             <div className="item-image-container">
-                <img src={"../img/"+item.img} alt={item.title}/>
+                <img src={"../img/"+item.imageUrl} alt={item.title}/>
                 {favourite ? (
                     <AiOutlineHeart className='fav' onClick={handleFavouriteClick} />
                 ) : (
