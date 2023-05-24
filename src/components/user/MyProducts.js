@@ -20,9 +20,9 @@ const MyProducts = ({ userData }) => {
             .finally(() => {});
     }, []);
 
-    // const handleEditProduct = (productId) => {
-    //     navigate(`/edit-product`);
-    // };
+    const handleEditProduct = (productId) => {
+        navigate(`/edit-product/${productId}`);
+    };
 
     const handleDeleteProduct = (productId) => {
         // Perform delete product logic
@@ -51,11 +51,11 @@ const MyProducts = ({ userData }) => {
                             <div className="my-products-edit">
                                 <AiOutlineEdit
                                     className="product-edit-icon"
-                                    // onClick={() => handleEditProduct(item.id)}
+                                    onClick={() => handleEditProduct(item.id)}
                                 />
                                 <MdDeleteOutline
                                     className="product-delete-icon"
-                                    // onClick={() => handleDeleteProduct(item.id)}
+                                    onClick={() => handleDeleteProduct(item.id)}
                                 />
                             </div>
                         </li>

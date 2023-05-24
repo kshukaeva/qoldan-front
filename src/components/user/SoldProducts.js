@@ -11,27 +11,26 @@ const SoldProducts = ({ userData }) => {
     };
 
     const handleSellConfirm = (productId) => {
-        // putSellConfirm(productId)
-        //     .then((response) => {
-        //         alert(response.data);
-        //     })
-        //     .catch((error) => {
-        //         alert(error.response.data);
-        //     })
-        //     .finally(() => {
-        //         setCallback(!callback);
-        //     });
+        putSellConfirm(productId)
+            .then((response) => {
+                alert(response.data);
+                setCallback(!callback);
+            })
+            .catch((error) => {
+                alert(error.response.data);
+            })
+            .finally(() => {});
     };
 
     useEffect(() => {
-        // getSellOrders(confirmedStatus)
-        //     .then((response) => {
-        //         setProducts(response.data);
-        //     })
-        //     .catch((error) => {
-        //         alert(error.response.data);
-        //     })
-        //     .finally(() => {});
+        getSellOrders(confirmedStatus)
+            .then((response) => {
+                setProducts(response.data);
+            })
+            .catch((error) => {
+                alert(error.response.data);
+            })
+            .finally(() => {});
     }, [callback, confirmedStatus]);
 
     return (
@@ -63,9 +62,9 @@ const SoldProducts = ({ userData }) => {
                                     <b>KZT {product.price}</b>
                                 </div>
                                 {!product.sellConfirmed ? (
-                                    <button onClick={handleSellConfirm(product.id)}>Confirm</button>
+                                    <button onClick={() => {handleSellConfirm(product.id)}}>Confirm</button>
                                 ) : (
-                                    <button disabled={true}>Confirmed</button>
+                                    <button disabled>Confirmed</button>
                                 )}
                             </li>
                         ))}

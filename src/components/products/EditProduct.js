@@ -1,60 +1,81 @@
 import React, { useState, useEffect } from 'react';
 import Uploaimagetest from "../Uploaimagetest";
 import {IoArrowBackCircle} from 'react-icons/io5';
-import {Link} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
+import {getCategories} from "../../api/CategoryAPI";
+import {getProductTypes} from "../../api/ProductTypeAPI";
+import {getProduct, postProduct, putProduct} from "../../api/ProductsAPI";
+
 function EditProduct() {
-    const [productName, setProductName] = useState('');
-    const [productDescription, setProductDescription] = useState('');
-    const [productPrice, setProductPrice] = useState('');
-    const [productImage, setProductImage] = useState('');
-    const [selectedType, setSelectedType] = useState('');
-    const [selectedCategory, setSelectedCategory] = useState('');
-    const categories = ['Electronics', 'Clothing', 'Home', 'Beauty'];
-    const handleTypeChange = (event) => {
-        setSelectedType(event.target.value); // update the selected type when user changes the radio button
-    }
+    const { id } = useParams();
+
+    const [product, setProduct] = useState({
+        "id": 0,
+        "title": "string",
+        "summary": "string",
+        "imageId": null,
+        "category": "",
+        "images": [],
+        "price": 0,
+        "type": "string",
+        "tags": []
+    });
+
+    const [categories, setCategories] = useState([]);
+    const [types, setTypes] = useState([]);
+
+    const [image, setImage] = useState(null)
+    const [fileName, setFileName] = useState("No selected file");
+
+    const navigate = useNavigate();
+
     useEffect(() => {
-        const fetchProductData = async () => {
-            try {
-                const response = await fetch('/userData.json');
-                const userData = await response.json();
-
-                // Replace '123' with the ID of the product you want to edit
-                const productData = userData.find((myProducts) => myProducts.id === '1');
-
-                setProductName(productData.title);
-                setProductDescription(productData.summary);
-                setProductPrice(productData.price);
-                setProductImage(productData.imageUrl);
-                setSelectedType(productData.type);
-                setSelectedCategory(productData.category);
-            } catch (error) {
-                console.log('Error fetching product data:', error);
-            }
-        };
-
-        fetchProductData();
+        getCategories()
+            .then((response) => {
+                setCategories(response.data);
+            })
+            .catch((error) => {
+                alert(error.response.data);
+            })
+            .finally(() => {});
+        getProductTypes()
+            .then((response) => {
+                setTypes(response.data);
+            })
+            .catch((error) => {
+                alert(error.response.data);
+            })
+            .finally(() => {});
+        getProduct(id)
+            .then((response) => {
+                setProduct({
+                    id: response.data.id,
+                    title: response.data.title,
+                    summary: response.data.summary,
+                    imageId: response.data.imageId,
+                    category: response.data.category,
+                    price: response.data.price,
+                    type: response.data.type,
+                    images: response.data.images,
+                    tags: response.data.tags
+                })
+            })
+            .catch((error) => {
+                alert(error.response.data);
+            })
+            .finally(() => {});
     }, []);
-
-    const handleProductNameChange = (event) => {
-        setProductName(event.target.value);
-    };
-
-    const handleProductDescriptionChange = (event) => {
-        setProductDescription(event.target.value);
-    };
-
-    const handleProductPriceChange = (event) => {
-        setProductPrice(event.target.value);
-    };
-
-    const handleCategoryChange = (event) => {
-        setSelectedCategory(event.target.value);
-    };
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        // Add code to submit the updated product data to the server
+        putProduct(product)
+            .then((response) => {
+                navigate(`/item/${product.id}`);
+            })
+            .catch((error) => {
+                alert(error.response.data);
+            })
+            .finally(() => {});
     };
 
     return (
@@ -65,39 +86,61 @@ function EditProduct() {
                 </Link>
                 <h1>Edit Product</h1>
             </div>
-            <div className="form-container">
-                <form className="product-form" onSubmit={handleSubmit}>
+            <div className='form-container'>
+                <form className='product-form' onSubmit={handleSubmit}>
                     <div className='form-row'>
                         <div className='form-col1'>
                             <label>
 
                                 Product Name:
-                                <input type="text" value={productName} onChange={handleProductNameChange} />
+                                <input type="text"
+                                       value={product.title}
+                                       onChange={(e) => setProduct({...product, title: e.target.value})}/>
                             </label>
                             <label>
                                 Product Description:
-                                <textarea style={{height: '135px'}} value={productDescription} onChange={handleProductDescriptionChange} />
+                                <textarea style={{height: '135px'}}
+                                          value={product.summary}
+                                          onChange={(e) => setProduct({...product, summary: e.target.value})} />
                             </label>
 
                             <label>
                                 Price:
-                                <input type="number" min="0" value={productPrice} onChange={handleProductPriceChange} />
+                                <input type="number"
+                                       min="1"
+                                       value={product.price}
+                                       onChange={(e) => setProduct({...product, price: e.target.value})} />
                             </label>
                         </div>
                         <div className='form-col2'>
                             <label>
                                 Image URL:
                                 {/*<input type="text" value={productImage} onChange={handleProductImageChange} />*/}
-                                <Uploaimagetest></Uploaimagetest>
+                                <Uploaimagetest image={image} setImage={setImage} fileName={fileName} setFileName={setFileName} />
                             </label>
 
                             <label>
                                 Category:
-                                <select value={selectedCategory} onChange={handleCategoryChange}>
+                                <select
+                                    value={product.category}
+                                    onChange={(e) => setProduct({...product, category: e.target.value})} >
                                     <option value="">Select a category</option>
                                     {categories.map((category) => (
-                                        <option key={category} value={category}>
-                                            {category}
+                                        <option key={category.title} value={category.title}>
+                                            {category.title}
+                                        </option>
+                                    ))}
+                                </select>
+                            </label>
+                            <label>
+                                Product Type:
+                                <select
+                                    value={product.type}
+                                    onChange={(e) => setProduct({...product, type: e.target.value})} >
+                                    <option value="">Select a type</option>
+                                    {types.map((type) => (
+                                        <option key={type.title} value={type.title}>
+                                            {type.title}
                                         </option>
                                     ))}
                                 </select>
@@ -105,33 +148,8 @@ function EditProduct() {
                         </div>
 
                     </div>
-                    <div className='check-box-row'>
-                        <div className='check-box-col1'>
-                            <label>
-                                <input
-                                    type="radio"
-                                    name="product-type"
-                                    value="Vintage"
-                                    checked={selectedType === 'Vintage'}
-                                    onChange={handleTypeChange}
-                                />
-                                Vintage
-                            </label>
-                        </div>
-                        <div className='check-box-col2'>
-                            <label>
-                                <input
-                                    type="radio"
-                                    name="product-type"
-                                    value="Secondhand"
-                                    checked={selectedType === 'Secondhand'}
-                                    onChange={handleTypeChange}
-                                />
-                                Secondhand
-                            </label>
-                        </div>
-                    </div>
                     <button type="submit" >Submit</button>
+
                 </form>
             </div>
         </div>

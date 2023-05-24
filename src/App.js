@@ -238,7 +238,7 @@ function App() {
             <Route path="/user-profile" element={<UserDashboard/>}/>
             <Route path="/donation" element={<DonationPage/>}/>
             {/*<Route path="/charity/:charityName" element={<CharityPage/>}/>*/}
-            <Route path="/edit-product" element={<EditProduct/>}/>
+            <Route path="/edit-product/:id" element={<EditProduct/>}/>
             <Route path="/my-products" element={<MyProducts/>}/>
           </Routes>
         </main>
