@@ -1,9 +1,9 @@
 import React from 'react';
-import about from '../img/about.png';
-import vector1 from '../img/vector.svg'
-import vector2 from '../img/vector1.svg'
-import vector3 from '../img/vector2.svg'
-import img from '../img/img.png'
+import about from '../../img/about.png';
+import vector1 from '../../img/vector.svg'
+import vector2 from '../../img/vector1.svg'
+import vector3 from '../../img/vector2.svg'
+import img from '../../img/img.png'
 function AboutUs(props) {
 
     return (

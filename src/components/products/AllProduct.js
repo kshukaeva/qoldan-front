@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Categories from './Categories';
 import Items from './Items';
-import Pagination from '../Pagination';
+import Pagination from '../core/Pagination';
 import { useNavigate } from 'react-router-dom';
 import { BsFilterRight, BsSearch } from 'react-icons/bs';
 

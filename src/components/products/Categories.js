@@ -1,56 +1,34 @@
 import React, { useState, useEffect } from 'react';
-import {getCategories} from '../../api/CategoriesAPI'
-import useApiCall from "../../api/useApiCall";
 
 const Categories = ({ chooseCategory }) => {
-  const [categories] = useState([
-    {
-      id: null,
-      title: 'All'
-    },
-    {
-      id: 1,
-      title: 'Clothing and Accessories'
-    },
-    {
-      id: 2,
-      title: 'Electronics'
-    },
-    {
-      id: 3,
-      title: 'Home and Garden'
-    },
-    {
-      id: 4,
-      title: 'Sports and Outdoors'
-    },
-    {
-      id: 5,
-      title: 'Books, Music, and Movies'
-    },
-    {
-      id: 6,
-      title: 'Toys and Games'
-    },
-    {
-      id: 7,
-      title: 'Vehicles'
-    }
-  ]);
+    const [categoriesData, setCategoriesData] = useState([]);
 
-  // const [loading, categories, error] = useApiCall(getCategories);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch('/categories.json');
+                const data = await response.json();
+                setCategoriesData(data);
+            } catch (error) {
+                console.error('Error fetching categories:', error);
+            }
+        };
 
+        fetchData();
+    }, []);
 
     return (
         <div className='categories-container'>
-          {categories.map((el) => (
-              <div className='categories' key={el.id} onClick={() => chooseCategory(el.id)}>
-                <span>{el.title}</span>
-              </div>
-          ))}
+            <div className='categories' onClick={() => chooseCategory('all')}>
+                <span>All</span>
+            </div>
+            {categoriesData.map((el) => (
+                <div className='categories' key={el.id} onClick={() => chooseCategory(el.id)}>
+                    <span>{el.title}</span>
+                </div>
+            ))}
         </div>
     );
-
 };
 
 export default Categories;

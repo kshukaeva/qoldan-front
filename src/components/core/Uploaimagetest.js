@@ -11,7 +11,7 @@ function Uploaimagetest(){
 
     return(
         <main>
-            <form className='upload-image' action=""
+            <form className='upload-image' action="src/components"
             onClick={() => document.querySelector(".input-field").click()}>
                 <input className='input-field' type="file" accept='image/*' hidden
                 onChange={({target: {files}}) =>{

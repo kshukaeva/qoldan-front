@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Items from './products/Items';
+import Items from '../products/Items';
 import {TbArrowNarrowRight} from 'react-icons/tb'
-import img from "../img/img.png";
+import img from "../../img/img.png";
 function Home(props) {
   const navigate = useNavigate();
   const [numItemsToShow] = useState(9);

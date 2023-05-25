@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiHeart, FiUser, FiShoppingCart } from 'react-icons/fi';
-import logo from '../img/logo.png';
+import logo from '../../img/logo.png';
 
 export default function Header(props) {
     const [userData, setUserData] = useState({});

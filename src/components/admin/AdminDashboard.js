@@ -3,11 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import './AdminDashboard.css';
 
 import { FaRegAddressCard, FaUserFriends } from 'react-icons/fa';
-import { BsClipboardData, BsPlusCircle } from 'react-icons/bs';
+import { BsClipboardData } from 'react-icons/bs';
+import { BiCategory} from 'react-icons/bi';
 import UserDetails from '../user/UserDetails';
 import ManageUsers from './ManageUsers';
 import ManageProducts from './ManageProducts';
-import AddCategory from './AddCategory';
+import ManageCategory from './ManageCategory';
 
 const AdminDashboard = () => {
     const [userData, setUserData] = useState({});
@@ -61,8 +62,8 @@ const AdminDashboard = () => {
                     <div className="buttn" onClick={() => handleDisplayDataChange('manageProducts')}>
                         <BsClipboardData /> Manage Products
                     </div>
-                    <div className="buttn" onClick={() => handleDisplayDataChange('addCategory')}>
-                        <BsPlusCircle /> Add Category
+                    <div className="buttn" onClick={() => handleDisplayDataChange('manageCategory')}>
+                        <BiCategory /> Manage Category
                     </div>
                 </div>
             </div>
@@ -70,7 +71,7 @@ const AdminDashboard = () => {
                 {displayData === 'detailProfile' && <UserDetails userData={userData} />}
                 {displayData === 'manageUsers' && <ManageUsers />}
                 {displayData === 'manageProducts' && <ManageProducts />}
-                {displayData === 'addCategory' && <AddCategory />}
+                {displayData === 'manageCategory' && <ManageCategory />}
             </div>
         </div>
     );

@@ -97,5 +97,16 @@
     "email": "admin1@example.com",
     "age": 40,
     "city": "New York City"
+  },
+  {
+    "userID": 3,
+    "role": "user",
+    "username": "marklee",
+    "firstName": "Mark",
+    "lastName": "Lee",
+    "imageUrl": "clothes.jpg",
+    "email": "marklee@example.com",
+    "age": 40,
+    "city": "New York City"
   }
 ]

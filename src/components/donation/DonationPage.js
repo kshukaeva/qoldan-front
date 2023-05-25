@@ -1,38 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BsFilterRight, BsSearch } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
-import organizationsData from './organizations.json';
+import { HiLocationMarker } from 'react-icons/hi';
 import './DonationPage.css';
-import {HiLocationMarker} from 'react-icons/hi';
+
 const DonationPage = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [filterOpen, setFilterOpen] = useState(false);
     const [selectedFilters, setSelectedFilters] = useState([]);
+    const [organizations, setOrganizations] = useState([]);
+    const [categories, setCategories] = useState([]);
 
-    // Extracting unique categories from organizationsData
-    const categories = organizationsData.reduce(
-        (acc, organization) =>
-            acc.concat(
-                organization.acceptedItems.filter(
-                    (item) => !acc.includes(item)
-                )
-            ),
-        []
-    );
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const organizationsResponse = await fetch('/organizationsData.json');
+                const organizationsData = await organizationsResponse.json();
+                setOrganizations(organizationsData);
 
-    // Filtering organizations based on the selected filters
-    const filteredOrganizations = selectedFilters.length
-        ? organizationsData.filter((organization) =>
-            selectedFilters.every((filter) =>
-                organization.acceptedItems.includes(filter)
-            )
-        )
-        : organizationsData;
+                const categoriesResponse = await fetch('/categories.json');
+                const categoriesData = await categoriesResponse.json();
+                setCategories(categoriesData);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
 
-    // Sorting organizations from newest to oldest
-    const sortedOrganizations = filteredOrganizations.sort(
-        (a, b) => a.id - b.id
-    );
+        fetchData();
+    }, []);
 
     // Handler for changing the search term
     const handleSearch = (event) => {
@@ -85,29 +80,32 @@ const DonationPage = () => {
                         {categories.map((category, index) => (
                             <li
                                 key={index}
-                                className={selectedFilters.includes(category) ? 'active' : ''}
-                                onClick={() => handleFilterToggle(category)}
+                                className={selectedFilters.includes(category.title) ? 'active' : ''}
+                                onClick={() => handleFilterToggle(category.title)}
                             >
-                                {category}
+                                {category.title}
                             </li>
                         ))}
                     </ul>
                 </div>
             )}
             <div className="organizations-list">
-                {sortedOrganizations.map((organization, index) => (
+                {organizations.map((organization, index) => (
                     <div className="organization-card" key={index}>
-                        <div className='organization-card-left'>
-                            <img src={'../img/' + organization.imageUrl} alt="organization-icon"/>
-                            <div className='organization-card-left-info'>
+                        <div className="organization-card-left">
+                            <img src={'../img/' + organization.imageUrl} alt="organization-icon" />
+                            <div className="organization-card-left-info">
                                 <Link to={`/organization/${organization.id}`} className="organization-name-link">
                                     <h2>{organization.name}</h2>
                                 </Link>
                                 <p>{organization.type}</p>
-                                <b><HiLocationMarker/>{organization.location}</b>
+                                <b>
+                                    <HiLocationMarker />
+                                    {organization.location}
+                                </b>
                             </div>
                         </div>
-                        <div className='organization-card-right'>
+                        <div className="organization-card-right">
                             <ul className="accepted-items">
                                 {organization.acceptedItems.map((item, itemIndex) => (
                                     <li key={itemIndex}>{item}</li>

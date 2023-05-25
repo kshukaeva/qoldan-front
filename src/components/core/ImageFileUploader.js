@@ -1,6 +1,6 @@
 import React, {useRef} from 'react'
 
-const ImageFileUploader = ({onFileSelect}) => {
+const a = ({onFileSelect}) => {
     const fileInput = useRef(null)
 
     const handleFileInput = (e) => {
