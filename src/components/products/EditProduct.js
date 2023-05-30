@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Uploaimagetest from "../Uploaimagetest";
+import Uploaimagetest from "../core/Uploaimagetest";
 import {IoArrowBackCircle} from 'react-icons/io5';
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {getCategories} from "../../api/CategoryAPI";

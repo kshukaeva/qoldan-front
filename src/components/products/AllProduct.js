@@ -4,7 +4,7 @@ import Items from './Items';
 import {useNavigate, useParams} from 'react-router-dom';
 import {getProductPages, getProducts} from "../../api/ProductsAPI";
 import {BsFilterRight, BsSearch} from "react-icons/bs";
-import Pagination from "../Pagination";
+import Pagination from "../core/Pagination";
 
 function AllProduct(props) {
     const navigate = useNavigate();

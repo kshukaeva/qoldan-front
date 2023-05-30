@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "imageUrl": "organization.jpg",
+    "name": "Organization A",
+    "type": "Orphan home",
+    "description": "Organization A located in Almaty.",
+    "location": "Almaty"
+  },
+  {
+    "id": 2,
+    "imageUrl": "organization.jpg",
+    "name": "Organization J",
+    "type": "Elderly Care Facility",
+    "description": "Organization J located in Aktobe.",
+    "location": "Aktobe"
+  }
+]

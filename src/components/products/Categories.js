@@ -44,7 +44,7 @@ const Categories = ({ chooseCategory }) => {
     return (
         <div className='categories-container'>
           {categories.map((el) => (
-              <div className='categories' key={el.id} onClick={() => chooseCategory(el.id)}>
+              <div className='categories' key={el.id} onClick={() => chooseCategory(el.title)}>
                 <span>{el.title}</span>
               </div>
           ))}

@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
-import Items from './products/Items';
+import Items from '../products/Items';
 import {TbArrowNarrowRight} from 'react-icons/tb';
-import useApiCall from "../api/useApiCall";
-import {getProducts} from "../api/ProductsAPI";
-import img from "../img/img.png"
+import useApiCall from "../../api/useApiCall";
+import {getProducts} from "../../api/ProductsAPI";
+import img from "../../img/img.png"
 
 function Home(props) {
   const navigate = useNavigate();

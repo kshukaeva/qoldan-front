@@ -1,13 +1,15 @@
-import React, {useEffect, useState,} from 'react';
-import Uploaimagetest from "../Uploaimagetest";
+import React, {useEffect, useRef, useState,} from 'react';
+import Uploaimagetest from "../core/Uploaimagetest";
 import {getCategories} from "../../api/CategoryAPI";
 import {getProductTypes} from "../../api/ProductTypeAPI";
 import {postProduct} from "../../api/ProductsAPI";
 import {useNavigate} from "react-router-dom";
 import {postImage} from "../../api/ImageAPI";
+import {flushSync} from "react-dom";
 
 function AddProduct() {
 
+    const isMounted = useRef(false);
     const [product, setProduct] = useState({
         "title": "",
         "summary": "",
@@ -18,6 +20,7 @@ function AddProduct() {
         "type": "string",
         "tags": []
     });
+    const [data, setData] = useState({});
 
     const [categories, setCategories] = useState([]);
     const [types, setTypes] = useState([]);
@@ -53,8 +56,7 @@ function AddProduct() {
 
         postImage(image)
             .then((response) => {
-                setProduct({...product, imageId: response.data});
-                sendPostProductRequest(product);
+                setData({...product, imageId: response.data});
             })
             .catch((error) => {
                 alert(error.response.data);
@@ -62,8 +64,9 @@ function AddProduct() {
             .finally(() => {});
     }
 
-    const sendPostProductRequest = (product) => {
-        postProduct(product)
+    const sendPostProductRequest = () => {
+        console.log("PRODUCT: ", product);
+        postProduct(data)
             .then((response) => {
                 navigate(`/item/${response.data}`);
             })
@@ -72,6 +75,14 @@ function AddProduct() {
             })
             .finally(() => {});
     }
+
+    useEffect(() => {
+        if (isMounted.current) {
+            sendPostProductRequest();
+        } else {
+            isMounted.current = true;
+        }
+    }, [data]);
 
     return (
         <div className="add-product-container">
