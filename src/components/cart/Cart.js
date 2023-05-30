@@ -1,11 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import Order from './Order';
 import {useNavigate} from "react-router-dom";
-import {getMyCart, postBookCart} from "../../api/CartAPI";
+import {getMyCart, postBookCart, postUnbookCart} from "../../api/CartAPI";
 import {postOrder} from "../../api/OrderApi";
+import Checkout from "./Checkout";
 
 const Cart = ({ onDelete }) => {
+
     const navigate = useNavigate();
+    const [currency, setCurrency] = useState('USD')
+    const [paymentId, setPaymentId] = useState(null);
+    const [success, setSuccess] = useState(false);
+
     const handleItemCardClick = (itemId) => {
         navigate(`/item/${itemId}`);
     };
@@ -25,16 +31,68 @@ const Cart = ({ onDelete }) => {
         products: [{}]
     });
 
-    const handleBuyButtonOnClick = () => {
+    const createOrder = (data, actions) => {
+        let items = [];
+        cart.products.forEach(product => {
+            let item = {
+                name: product.title,
+                quantity: 1,
+                unit_amount: {
+                    currency_code: currency,
+                    value: product.price,
+                }
+            }
+            items.push(item);
+        });
+        let purchase_units = [{
+            items,
+            amount: {
+                currency_code: currency,
+                value: cart.total,
+                breakdown: {
+                    item_total: {
+                        currency_code: currency,
+                        value: cart.total
+                    }
+                }
+            },
+        }];
+        // purchase_units = [{
+        //     amount: {
+        //         currency_code: currency,
+        //         value: 150000,
+        //         breakdown: {
+        //             item_total: {
+        //                 currency_code: currency,
+        //                 value: 150000
+        //             }
+        //         }
+        //     },
+        //     items: [{
+        //         name: 'MacBook Pro',
+        //         quantity: 1,
+        //         unit_amount: {
+        //             currency_code: currency,
+        //             value: 150000
+        //         }
+        //     }]
+        // }];
+
         postBookCart()
             .then((response) => {
                 console.log(response.data);
-                handleBuyConfirmed("12341");
             })
             .catch((error) => {
                 alert(error.response.data);
+
             })
             .finally(() => {
+            });
+
+        return actions.order.create({ purchase_units })
+            .then((id) => {
+                setPaymentId(id);
+                return id;
             });
     }
 
@@ -51,10 +109,45 @@ const Cart = ({ onDelete }) => {
         navigate(`/all`);
     }
 
+    const onApprove = (data, actions) => {
+        return actions.order.capture()
+            .then(function (details) {
+                // const { payer } = details;
+                console.log(details);
+                setSuccess(true);
+            }).catch((error) => {
+                console.log("ERROR: ", error);
+                unbookCartOnError();
+            });
+    }
+
+    const onError = (error) => {
+        unbookCartOnError();
+    }
+
+    const unbookCartOnError = () => {
+        postUnbookCart()
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch((error) => {
+                alert(error.response.data);
+            })
+            .finally(() => {});
+    }
+
+    useEffect(() => {
+        if (success) {
+            handleBuyConfirmed(paymentId);
+            setCallback(!callback);
+        }
+    }, [success]);
+
     useEffect(() => {
         getMyCart()
             .then((response) => {
                 setCart(response.data);
+                setSuccess(false);
             })
             .catch((error) => {
                 alert(error.response.data);
@@ -129,7 +222,7 @@ const Cart = ({ onDelete }) => {
                 <div className='card-payment'>
                     <span className='card-info-title'>Payment option</span>
                     <br/>
-                    <button onClick={handleBuyButtonOnClick}>Buy now</button>
+                    <Checkout createOrder={createOrder} onApprove={onApprove} onError={onError}/>
                 </div>
             </div>
         </div>

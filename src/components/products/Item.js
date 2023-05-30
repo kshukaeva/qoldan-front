@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {AiFillHeart, AiOutlineHeart} from 'react-icons/ai';
 import {BsCart2, BsCartCheckFill} from 'react-icons/bs';
-import {getImage} from "../../api/ImageAPI";
-import {arrayBufferToBase64} from "../../helper/ImageHelper";
+import {getImage, getImageUrl} from "../../api/ImageAPI";
+import {arrayBufferToBase64, noImageUrl} from "../../helper/ImageHelper";
 
 const Item = ({
                   item,
@@ -15,25 +15,14 @@ const Item = ({
                   callback,
                   setCallback
               }) => {
-    const [itemImage, setItemImage] = useState(null);
+    const [itemImage, setItemImage] = useState(noImageUrl);
 
     const handleItemClick = () => {
         onItemClick(item.id);
     };
 
     useEffect(() => {
-        getImage(item.imageId)
-            .then((response) => {
-                console.log(response);
-                var base64Flag = 'data:image/jpeg;base64,';
-                var imageStr = arrayBufferToBase64(response.data);
-                setItemImage(base64Flag + imageStr);
-            })
-            .catch((error) => {
-                alert(error.response.data);
-            })
-            .finally(() => {
-            });
+        setItemImage(getImageUrl(item.imageId));
     }, [callback]);
 
     return (
@@ -41,11 +30,7 @@ const Item = ({
             {item && (
                 <div>
                     <div className="item-image-container">
-                        <img src={`data:image/jpeg;base64,${itemImage}`}
-                             onError={(target) => {
-                                 target.onerror = null;
-                                 target.src = '/img/default/no-photo.jpeg';
-                             }}/>
+                        <img src={itemImage} />
                         {item.inWishlist ? (
                             <AiFillHeart className='fav'
                                          onClick={() => deleteFavourites(item.id, callback, setCallback)}/>

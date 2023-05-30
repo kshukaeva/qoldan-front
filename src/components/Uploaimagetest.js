@@ -17,7 +17,7 @@ function Uploaimagetest({ image, setImage, fileName, setFileName }){
                 onChange={({target: {files}}) =>{
                     files[0] && setFileName(files[0].name)
                     if (files){
-                        setImage(URL.createObjectURL(files[0]))
+                        setImage(files[0]);
                     }
                 }}
                 />

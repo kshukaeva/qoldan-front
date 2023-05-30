@@ -94,6 +94,7 @@ export const postProduct = async (product) => {
         const headers = {
             'Authorization': 'Bearer ' + localStorage.getItem('token')
         };
+        console.log(product);
         const response = await axios.post(
             "http://localhost:8100/api/product",
             product,

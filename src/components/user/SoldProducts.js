@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {getSellOrders, getSoldProducts, putSellConfirm} from "../../api/OrderApi";
+import {getImageUrl} from "../../api/ImageAPI";
 
 const SoldProducts = ({ userData }) => {
     const [confirmedStatus, setConfirmedStatus] = useState(null);
@@ -56,7 +57,7 @@ const SoldProducts = ({ userData }) => {
                 <ul>
                     {products.map((product) => (
                             <li key={product.id}>
-                                <img src={'../img/' + product.img} alt={product.title} />
+                                <img src={getImageUrl(product.imageId)} alt={product.title} />
                                 <div className="product-details">
                                     <p>{product.title}</p>
                                     <b>KZT {product.price}</b>

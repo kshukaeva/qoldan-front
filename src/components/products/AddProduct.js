@@ -4,6 +4,7 @@ import {getCategories} from "../../api/CategoryAPI";
 import {getProductTypes} from "../../api/ProductTypeAPI";
 import {postProduct} from "../../api/ProductsAPI";
 import {useNavigate} from "react-router-dom";
+import {postImage} from "../../api/ImageAPI";
 
 function AddProduct() {
 
@@ -50,6 +51,18 @@ function AddProduct() {
     const handleSubmit = (event) => {
         event.preventDefault();
 
+        postImage(image)
+            .then((response) => {
+                setProduct({...product, imageId: response.data});
+                sendPostProductRequest(product);
+            })
+            .catch((error) => {
+                alert(error.response.data);
+            })
+            .finally(() => {});
+    }
+
+    const sendPostProductRequest = (product) => {
         postProduct(product)
             .then((response) => {
                 navigate(`/item/${response.data}`);
@@ -57,8 +70,7 @@ function AddProduct() {
             .catch((error) => {
                 alert(error.response.data);
             })
-            .finally(() => {
-            });
+            .finally(() => {});
     }
 
     return (
@@ -92,7 +104,7 @@ function AddProduct() {
                         <div className='form-col2'>
                             <label>
                                 Image URL:
-                                {/*<input type="text" value={productImage} onChange={handleProductImageChange} />*/}
+                                {/*<input type="file" value={image} onChange={(e) => setImage(e.target.value)} />*/}
                                 <Uploaimagetest image={image} setImage={setImage} fileName={fileName}
                                                 setFileName={setFileName}/>
                             </label>

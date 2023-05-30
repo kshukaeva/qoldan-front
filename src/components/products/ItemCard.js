@@ -3,28 +3,15 @@ import { useParams } from 'react-router-dom';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import {FiShoppingBag, FiShoppingCart} from 'react-icons/fi';
 import {getProduct} from "../../api/ProductsAPI";
+import {getImageUrl} from "../../api/ImageAPI";
+import {noImageUrl} from "../../helper/ImageHelper";
 
 const ItemCard = ({ items, onAdd, onRemove, addFavourites, deleteFavourites, addToCart, removeFromCart }) => {
   const { id } = useParams();
   const productId = id;
-  const [selectedItemId, setSelectedItemId] = useState(null);
-  // const [isFavourite, setIsFavourite] = useState(false);
-  // const item = items.find(item => item.id === Number(id));
-  // const relatedProducts = items.filter(item => item.category === item.category && item.id !== Number(id)).slice(0, 3);
+  const [ image, setImage ] = useState(noImageUrl);
+
   const relatedProducts = [];
-
-  // const handleItemClick = (itemId) => {
-  //   setSelectedItemId(itemId);
-  // };
-
-  // const handleFavouriteClick = (item) => {
-  //   setIsFavourite(!isFavourite);
-  //   if (isFavourite) {
-  //     deleteFavourites(item);
-  //   } else {
-  //     addFavourites(item);
-  //   }
-  // };
 
   const [callback, setCallback] = useState(false);
   const [item, setItem] = useState({});
@@ -33,7 +20,7 @@ const ItemCard = ({ items, onAdd, onRemove, addFavourites, deleteFavourites, add
     getProduct(productId)
         .then((response) => {
           setItem(response.data);
-          console.log(response.data);
+          setImage(getImageUrl(response.data.imageId));
         })
         .catch((error) => {
           alert(error.response.data);
@@ -48,7 +35,7 @@ const ItemCard = ({ items, onAdd, onRemove, addFavourites, deleteFavourites, add
           <div className="first-main-container">
             <div className="first-sub-container">
               <div className="main-image-container">
-                <img src={"../img/"+item.img} alt={item.title}/>
+                <img src={image} alt={item.title}/>
                 {item.inWishlist ? (
                     <AiFillHeart className='fav' onClick={() => deleteFavourites(item.id, callback, setCallback)} />
                 ) : (
@@ -56,9 +43,9 @@ const ItemCard = ({ items, onAdd, onRemove, addFavourites, deleteFavourites, add
                 )}
               </div>
               <div className="three-image-container">
-                <img src={"../img/"+item.img} alt={item.title}/>
-                <img src={"../img/"+item.img} alt={item.title}/>
-                <img src={"../img/"+item.img} alt={item.title}/>
+                <img src={image} alt={item.title}/>
+                <img src={image} alt={item.title}/>
+                <img src={image} alt={item.title}/>
               </div>
             </div>
             <div className="second-sub-container">
@@ -74,21 +61,21 @@ const ItemCard = ({ items, onAdd, onRemove, addFavourites, deleteFavourites, add
               )}
             </div>
           </div>
-          <div className="second-main-container">
-            <h2>You Also Like It</h2>
-            <div className="recommendation-container">
-              {relatedProducts.map(product => (
-                <div key={product.id} className="recommendation-item">
-                  <img src={"../img/"+product.img} alt={product.title}/>
-                  <h3>{product.title}</h3>
-                  {/*<p>{product.category}</p>*/}
-                  <b>{product.price} KZT</b>
-                  {/*<div className='add-to-cart' onClick={() => onAdd(product)}> <FiShoppingCart/> </div>*/}
-                  {/*{addFavourites ? (isFavourite ? <AiFillHeart className='fav' onClick={() => handleFavouriteClick(product)} /> : <AiOutlineHeart className='fav' onClick={() => handleFavouriteClick(product)} />) : null}*/}
-                </div>
-              ))}
-            </div>
-          </div>
+          {/*<div className="second-main-container">*/}
+          {/*  <h2>You Also Like It</h2>*/}
+          {/*  <div className="recommendation-container">*/}
+          {/*    {relatedProducts.map(product => (*/}
+          {/*      <div key={product.id} className="recommendation-item">*/}
+          {/*        <img src={"../img/"+product.img} alt={product.title}/>*/}
+          {/*        <h3>{product.title}</h3>*/}
+          {/*        /!*<p>{product.category}</p>*!/*/}
+          {/*        <b>{product.price} KZT</b>*/}
+          {/*        /!*<div className='add-to-cart' onClick={() => onAdd(product)}> <FiShoppingCart/> </div>*!/*/}
+          {/*        /!*{addFavourites ? (isFavourite ? <AiFillHeart className='fav' onClick={() => handleFavouriteClick(product)} /> : <AiOutlineHeart className='fav' onClick={() => handleFavouriteClick(product)} />) : null}*!/*/}
+          {/*      </div>*/}
+          {/*    ))}*/}
+          {/*  </div>*/}
+          {/*</div>*/}
         </div>
       )}
     </div>

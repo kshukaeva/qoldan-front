@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { AiOutlineEdit } from 'react-icons/ai';
 import { MdDeleteOutline } from 'react-icons/md';
 import {getMyProducts} from "../../api/ProductsAPI";
+import {getImageUrl} from "../../api/ImageAPI";
 
 const MyProducts = ({ userData }) => {
     const navigate = useNavigate();
@@ -39,23 +40,23 @@ const MyProducts = ({ userData }) => {
             </div>
             <ul>
                 {products &&
-                    products.map((item) => (
-                        <li key={item.id}>
+                    products.map((product) => (
+                        <li key={product.id}>
                             <div className="my-products-info">
-                                <img src={'../img/' + item.img} alt={item.title} />
+                                <img src={getImageUrl(product.imageId)} alt={product.title} />
                                 <div className="my-products-inf">
-                                    <p>{item.title}</p>
-                                    <b>KZT {item.price}</b>
+                                    <p>{product.title}</p>
+                                    <b>KZT {product.price}</b>
                                 </div>
                             </div>
                             <div className="my-products-edit">
                                 <AiOutlineEdit
                                     className="product-edit-icon"
-                                    onClick={() => handleEditProduct(item.id)}
+                                    onClick={() => handleEditProduct(product.id)}
                                 />
                                 <MdDeleteOutline
                                     className="product-delete-icon"
-                                    onClick={() => handleDeleteProduct(item.id)}
+                                    onClick={() => handleDeleteProduct(product.id)}
                                 />
                             </div>
                         </li>

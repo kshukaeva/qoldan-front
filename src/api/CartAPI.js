@@ -58,7 +58,7 @@ export const getMyCart = async (limit, offset) => {
     }
 }
 
-export const postBookCart = async (productId) => {
+export const postBookCart = async () => {
     try {
         const params = {}
         const headers = {
@@ -66,6 +66,22 @@ export const postBookCart = async (productId) => {
         }
         const response = await axios.post(
             "http://localhost:8100/api/my-cart/book",
+            { }, { params, headers }
+        )
+        return response;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export const postUnbookCart = async () => {
+    try {
+        const params = {}
+        const headers = {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        }
+        const response = await axios.post(
+            "http://localhost:8100/api/my-cart/unbook",
             { }, { params, headers }
         )
         return response;

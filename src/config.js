@@ -1,0 +1,5 @@
+export let CLIENT_ID;
+export let APP_SECRET;
+
+CLIENT_ID = 'AULW2giF9GxdMvJFsXiCvu4Tj3S4SJan9zoZC7wU8d-_uMXVQ2WdhEJbTzW0DCtVPS5pYEWS2HjYuR4r'
+APP_SECRET = 'EKiKNhubTYZaEtzyOHwrNjxFcsK_tdkFxSGbS6VgaIfWRxq7itQxknVpg4j9XZRqMyIZU2kNBvgSicbS'
