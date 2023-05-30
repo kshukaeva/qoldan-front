@@ -16,11 +16,14 @@ import {getProducts} from "./api/ProductsAPI";
 import AboutUs from "./components/core/AboutUs";
 import Uploaimagetest from "./components/core/Uploaimagetest";
 import UserDashboard from './components/user/UserDashboard';
-import DonationPage from "./components/donation/DonationPage";
-import OrganizationPage from "./components/donation/OrganizationPage";
 import EditProduct from "./components/products/EditProduct";
 import MyProducts from "./components/user/MyProducts";
 import AdminDashboard from "./components/admin/AdminDashboard";
+import OrganizationDashboard from "./components/donation/dashboard/OrganizationDashboard";
+import AnnouncementList from "./components/donation/AnnouncementList";
+import AnnouncementDetails from "./components/donation/AnnouncementDetails";
+import AddAnnouncement from "./components/donation/AddAnnouncement";
+import EditAnnouncement from "./components/donation/EditAnnouncement";
 
 function App() {
   const [orders, setOrders] = useState([]);
@@ -105,12 +108,15 @@ function App() {
           <Route path="/about-us" element={<AboutUs/>}/>
           <Route path="/test" element={<Uploaimagetest/>}/>
           <Route path="/user-profile/:userID" element={<UserDashboard />} />
-          <Route path="/donation" element={<DonationPage/>} />
-          <Route path="/organization/:id" element={<OrganizationPage/>} />
           <Route path="/edit-product" element={<EditProduct/>} />
           <Route path="/my-products" element={<MyProducts/>} />
           <Route path="/forget-password" element={<ForgotPassword/>} />
           <Route path="/admin-profile" element={<AdminDashboard/>}/>
+          <Route path="/organization-dashboard/:id" element={<OrganizationDashboard/>} />
+          <Route path="/announcements" element={<AnnouncementList/>} />
+          <Route path="/announcement/:id" element={<AnnouncementDetails/>} />
+          <Route path="/add-announcement" element={<AddAnnouncement/>} />
+          <Route path="/edit-announcement/:id" element={<EditAnnouncement/>} />
         </Routes>
       </main>
       <Footer/>

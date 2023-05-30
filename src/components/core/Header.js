@@ -39,14 +39,14 @@ export default function Header(props) {
         <ul className="nav">
           <li onClick={() => handleClick('/')}>Home</li>
           <li onClick={() => handleClick('/all')}>Products</li>
-          <li onClick={() => handleClick('/donation')}>Donation</li>
+          <li onClick={() => handleClick('/announcements')}>Donation</li>
         </ul>
       </div>
       <div className="right-side">
         <FiShoppingCart onClick={() => handleClick('/cart')} className={`shop-cart-button`} />
         <FiHeart onClick={() => handleClick('/fav')} className="fav" />
         {isLoggedIn ? (
-          <img src={'../img/' + 'clothes.jpg'} alt="Logo" onClick={() => handleClick('/user-profile/1')} className="login-icon" />
+          <img src={'../img/' + 'clothes.jpg'} alt="Logo" onClick={() => handleClick('/user-dashboard/1')} className="login-icon" />
         ) : (
           <FiUser onClick={() => handleClick('/login')} className="login-icon" />
         )}

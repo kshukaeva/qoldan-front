@@ -23,7 +23,7 @@ function Login() {
 
       localStorage.setItem('token', token);
       localStorage.setItem('username', email);
-      navigate('/user-profile');
+      navigate('/user-dashboard');
     } catch (error) {
       if (error.response) {
         setError(error.response.data);

@@ -4,79 +4,15 @@
     "imageUrl": "organization.jpg",
     "name": "Organization A",
     "type": "Orphan home",
-    "location": "Almaty",
-    "acceptedItems": ["Clothing", "Accessories", "Furniture"]
+    "description": "Organization A located in Almaty.",
+    "location": "Almaty"
   },
   {
     "id": 2,
     "imageUrl": "organization.jpg",
-    "name": "Organization B",
-    "type": "Orphan home",
-    "location": "Astana",
-    "acceptedItems": ["Electronics", "Books", "Toys"]
-  },
-  {
-    "id": 3,
-    "imageUrl": "organization.jpg",
-    "name": "Organization C",
-    "type": "Orphan home",
-    "location": "Kostanay",
-    "acceptedItems": ["Books", "Toys"]
-  },
-  {
-    "id": 4,
-    "imageUrl": "organization.jpg",
-    "name": "Organization D",
-    "type": "Animal Shelter",
-    "location": "Karaganda",
-    "acceptedItems": ["Pet Food", "Toys", "Bedding"]
-  },
-  {
-    "id": 5,
-    "imageUrl": "organization.jpg",
-    "name": "Organization E",
-    "type": "Community Center",
-    "location": "Almaty",
-    "acceptedItems": ["School Supplies", "Sports Equipment"]
-  },
-  {
-    "id": 6,
-    "imageUrl": "organization.jpg",
-    "name": "Organization F",
-    "type": "Food Bank",
-    "location": "Semey",
-    "acceptedItems": ["Canned Food", "Dry Goods"]
-  },
-  {
-    "id": 7,
-    "imageUrl": "organization.jpg",
-    "name": "Organization G",
-    "type": "Homeless Shelter",
-    "location": "Oral",
-    "acceptedItems": ["Clothing", "Blankets", "Personal Care Items"]
-  },
-  {
-    "id": 8,
-    "imageUrl": "organization.jpg",
-    "name": "Organization H",
-    "type": "Astana",
-    "location": "Sydney",
-    "acceptedItems": ["Medical Supplies", "First Aid Kits"]
-  },
-  {
-    "id": 9,
-    "imageUrl": "organization.jpg",
-    "name": "Organization I",
-    "type": "Youth Center",
-    "location": "Aktau",
-    "acceptedItems": ["Art Supplies", "Board Games"]
-  },
-  {
-    "id": 10,
-    "imageUrl": "organization.jpg",
     "name": "Organization J",
     "type": "Elderly Care Facility",
-    "location": "Aktobe",
-    "acceptedItems": ["Clothing", "Toiletries", "Toys"]
+    "description": "Organization J located in Aktobe.",
+    "location": "Aktobe"
   }
 ]

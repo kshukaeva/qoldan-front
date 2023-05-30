@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "userId": 1,
+    "organizationId": 1,
+    "announcementId": 1,
+    "productName": "T-shirt",
+    "productDescription": "A comfortable T-shirt",
+    "quantity": 5,
+    "image": "clothes.jpg"
+  },
+  {
+    "id": 2,
+    "userId": 1,
+    "organizationId": 2,
+    "announcementId": 1,
+    "productName": "Book",
+    "productDescription": "An interesting novel",
+    "quantity": 3,
+    "image": "book.jpg"
+  },
+  {
+    "id": 3,
+    "userId": 3,
+    "organizationId": 1,
+    "announcementId": 2,
+    "productName": "Toy",
+    "productDescription": "A fun toy for kids",
+    "quantity": 2,
+    "image": "toys.jpg"
+  }
+]

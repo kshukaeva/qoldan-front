@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "organizationId": 1,
+    "title": "50 M-size T-shirts for an Orphanage",
+    "categoryId": 1,
+    "description": "We are in need of 50 M-size T-shirts for the children at the orphanage.",
+    "targetQuantity": 50,
+    "currentQuantity": 38
+  },
+  {
+    "id": 2,
+    "organizationId": 2,
+    "title": "40 Books for the Home of the Elderly",
+    "categoryId": 5,
+    "description": "We require 40 books of different genres for the residents of the elderly home.",
+    "targetQuantity": 40,
+    "currentQuantity": 20
+  },
+  {
+    "id": 3,
+    "organizationId": 1,
+    "title": "30 Books for the Orphanage",
+    "categoryId": 5,
+    "description": "We require 40 books of different genres for the residents of the elderly home.",
+    "targetQuantity": 30,
+    "currentQuantity": 7
+  }
+]
