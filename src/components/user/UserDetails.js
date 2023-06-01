@@ -40,14 +40,6 @@ const UserDetails = ({ userData, callback, setCallback }) => {
                     <label htmlFor='mobile'>MOBILE*:</label>
                     <input type='text' id='mobile' defaultValue={userData.mobile} />
                 </div>
-                <div className='form-row'>
-                    <label htmlFor='dateOfBirth'>DATE OF BIRTH*:</label>
-                    <div className='date-inputs'>
-                        <input type='number' id='day' placeholder='Day' defaultValue={userData.day} />
-                        <input type='number' id='month' placeholder='Month' defaultValue={userData.month} />
-                        <input type='number' id='year' placeholder='Year' defaultValue={userData.year} />
-                    </div>
-                </div>
             </div>
             <button className='save-changes' onClick={handleSaveChanges}>
                 Save Changes

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {Link, useNavigate} from 'react-router-dom';
-import {FcGoogle} from "react-icons/fc";
 import axios from "axios";
+import './AuthStyle.css';
 
 export default function Register() {
   const navigate = useNavigate();
@@ -104,14 +104,6 @@ export default function Register() {
         <button type="submit">Register</button>
         </div>
     </form>
-      {/*<div className="google-button-container">*/}
-      {/*  <div className="google-icon-text-container">*/}
-      {/*    <div className="google-icon-container">*/}
-      {/*      <FcGoogle/>*/}
-      {/*    </div>*/}
-      {/*    <h3 className="google-text">Sign Up with Google</h3>*/}
-      {/*  </div>*/}
-      {/*</div>*/}
   </div>
 
   </div>  

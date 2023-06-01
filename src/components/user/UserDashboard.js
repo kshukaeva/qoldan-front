@@ -78,13 +78,11 @@ const UserDashboard = () => {
         <div className='user-main-dash'>
             <div className='user-profile-left'>
                 <div className='user-profile-dash'>
-                    <img src={'../img/clothes.jpg'} alt="user-icon"/>
+                    <img src={'../img/profile_icon.jpg'} alt="user-icon"/>
                     <p>Welcome,</p>
                     <p>{userData.firstname} {userData.lastname}!</p>
                     <p className='email'>Your email address is {userData.email}.</p>
                     <p className='mobile'>Your mobile phone is {userData.mobile}.</p>
-                    {/*<p className='age'>You are {userData.age} years old.</p>*/}
-                    {/*<p className='location'>You are located in {userData.city}.</p>*/}
                 </div>
                 <div className='list-of-separation'>
                     <div className='buttn' onClick={() => handleDisplayDataChange('detailProfile')}>
@@ -93,9 +91,9 @@ const UserDashboard = () => {
                     <div className='buttn' onClick={() => handleDisplayDataChange('address')}>
                         <TbHomeEdit /> Address Book
                     </div>
-                    <div className='buttn' onClick={() => handleDisplayDataChange('payment')}>
-                        <MdPayment /> Payment Method
-                    </div>
+                    {/*<div className='buttn' onClick={() => handleDisplayDataChange('payment')}>*/}
+                    {/*    <MdPayment /> Payment Method*/}
+                    {/*</div>*/}
                 </div>
                 <div className='list-of-separation'>
                     <div className='buttn' onClick={() => handleDisplayDataChange('myProducts')}>

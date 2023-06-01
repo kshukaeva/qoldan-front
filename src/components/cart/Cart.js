@@ -4,6 +4,7 @@ import {useNavigate} from "react-router-dom";
 import {getMyCart, postBookCart, postUnbookCart} from "../../api/CartAPI";
 import {postOrder} from "../../api/OrderApi";
 import Checkout from "./Checkout";
+import './CartStyle.css';
 
 const Cart = ({ onDelete }) => {
 
@@ -57,26 +58,6 @@ const Cart = ({ onDelete }) => {
                 }
             },
         }];
-        // purchase_units = [{
-        //     amount: {
-        //         currency_code: currency,
-        //         value: 150000,
-        //         breakdown: {
-        //             item_total: {
-        //                 currency_code: currency,
-        //                 value: 150000
-        //             }
-        //         }
-        //     },
-        //     items: [{
-        //         name: 'MacBook Pro',
-        //         quantity: 1,
-        //         unit_amount: {
-        //             currency_code: currency,
-        //             value: 150000
-        //         }
-        //     }]
-        // }];
 
         postBookCart()
             .then((response) => {

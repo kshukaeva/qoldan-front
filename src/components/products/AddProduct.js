@@ -5,7 +5,7 @@ import {getProductTypes} from "../../api/ProductTypeAPI";
 import {postProduct} from "../../api/ProductsAPI";
 import {useNavigate} from "react-router-dom";
 import {postImage} from "../../api/ImageAPI";
-import {flushSync} from "react-dom";
+import './ProductStyle.css';
 
 function AddProduct() {
 
@@ -85,40 +85,25 @@ function AddProduct() {
 
     return (
         <div className="add-product-container">
-            <h1>Add Product</h1>
+            <h1>ADD PRODUCT</h1>
             <div className='form-container'>
                 <form className='product-form' onSubmit={handleSubmit}>
                     <div className='form-row'>
                         <div className='form-col1'>
+                            <label>
+                                Product Image:
+                                {/*<input type="file" value={image} onChange={(e) => setImage(e.target.value)} />*/}
+                                <Uploaimagetest image={image} setImage={setImage} fileName={fileName}
+                                                setFileName={setFileName}/>
+                            </label>
+                        </div>
+                        <div className='form-col2'>
                             <label>
                                 Product Name:
                                 <input type="text"
                                        value={product.title}
                                        onChange={(e) => setProduct({ ...product, title: e.target.value })}/>
                             </label>
-                            <label>
-                                Product Description:
-                                <textarea style={{ height: '135px' }}
-                                          value={product.summary}
-                                          onChange={(e) => setProduct({ ...product, summary: e.target.value })}/>
-                            </label>
-
-                            <label>
-                                Price:
-                                <input type="number"
-                                       min="1"
-                                       value={product.price}
-                                       onChange={(e) => setProduct({ ...product, price: e.target.value })}/>
-                            </label>
-                        </div>
-                        <div className='form-col2'>
-                            <label>
-                                Image URL:
-                                {/*<input type="file" value={image} onChange={(e) => setImage(e.target.value)} />*/}
-                                <Uploaimagetest image={image} setImage={setImage} fileName={fileName}
-                                                setFileName={setFileName}/>
-                            </label>
-
                             <label>
                                 Category:
                                 <select
@@ -145,11 +130,22 @@ function AddProduct() {
                                     ))}
                                 </select>
                             </label>
+                            <label>
+                                Price:
+                                <input type="number"
+                                       min="1"
+                                       value={product.price}
+                                       onChange={(e) => setProduct({ ...product, price: e.target.value })}/>
+                            </label>
+                            <label>
+                                Product Description:
+                                <textarea style={{ height: '135px' }}
+                                          value={product.summary}
+                                          onChange={(e) => setProduct({ ...product, summary: e.target.value })}/>
+                            </label>
                         </div>
-
                     </div>
                     <button type="submit">Submit</button>
-
                 </form>
             </div>
         </div>

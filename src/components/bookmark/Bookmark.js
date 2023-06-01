@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Favourites from './Favourites';
 import {useNavigate, useParams} from "react-router-dom";
 import {getMyWishlist} from "../../api/WishlistAPI";
+import './BookmarkStyle.css';
 
 const Bookmark = ({ items, favourites, setFavourites, onAdd, onRemove, addFavourites,deleteFavourites }) => {
     const { id } = useParams();
@@ -26,7 +27,7 @@ const Bookmark = ({ items, favourites, setFavourites, onAdd, onRemove, addFavour
 
     return (
         <div className='bookmark-container'>
-            <span className='fc-title'>Мои избранные</span>
+            <span className='fc-title'>My Favorites</span>
             {favourites.length > 0 ? (
                 <div className='bookmark'>
                     {favourites.map((el) => (
@@ -37,7 +38,7 @@ const Bookmark = ({ items, favourites, setFavourites, onAdd, onRemove, addFavour
                 </div>
             ) : (
                 <div className='empty'>
-                    <h3>Избранных нету</h3>
+                    <h3>There are no favorites</h3>
                 </div>
             )}
             {/*<div className="second-main-container">*/}
