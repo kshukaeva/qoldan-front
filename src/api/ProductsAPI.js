@@ -123,3 +123,19 @@ export const putProduct = async (product) => {
         throw error;
     }
 }
+
+// DELETE Requests
+export const deleteProduct = async (productId) => {
+    try {
+        const headers = {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        };
+        const response = await axios.delete(
+            apiBaseUrl + "/product/" + productId,
+            { headers }
+        )
+        return response;
+    } catch (error) {
+        throw error;
+    }
+}
