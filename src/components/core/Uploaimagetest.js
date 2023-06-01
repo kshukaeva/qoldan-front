@@ -10,7 +10,7 @@ function Uploaimagetest({ image, setImage, fileName, setFileName }){
     // const [fileName, setFileName] = useState("No selected file");
 
     return(
-        <main>
+        <div>
             <form className='upload-image' action="src/components/core/Uploaimagetest"
             onClick={() => document.querySelector(".input-field").click()}>
                 <input className='input-field' type="file" accept='image/*' hidden
@@ -43,7 +43,7 @@ function Uploaimagetest({ image, setImage, fileName, setFileName }){
                 </span>
             </section>
 
-        </main>
+        </div>
     )
 }
 

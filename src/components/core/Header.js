@@ -3,23 +3,9 @@ import {useNavigate} from 'react-router-dom';
 import {FiHeart, FiShoppingCart, FiUser} from 'react-icons/fi';
 import logo from '../../img/logo.png';
 
-export default function Header(props) {
-    const [userData, setUserData] = useState({});
+export default function Header() {
+
     const navigate = useNavigate();
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch('/userData.json');
-                const data = await response.json();
-                setUserData(data);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-        fetchData();
-    }, []);
-
     const handleClick = (path) => {
         navigate(path);
     };
@@ -46,7 +32,7 @@ export default function Header(props) {
                 <FiShoppingCart onClick={() => handleClick('/cart')} className={`shop-cart-button`}/>
                 <FiHeart onClick={() => handleClick('/fav')} className="fav"/>
                 {isLoggedIn ? (
-                    <img src={'../img/' + 'clothes.jpg'} alt="Logo" onClick={() => handleClick('/user-profile')}
+                    <img src={'../../img/' + 'profile_icon.jpg'} alt="logo" onClick={() => handleClick('/user-profile')}
                          className="login-icon"/>
                 ) : (
                     <FiUser onClick={() => handleClick('/login')} className="login-icon"/>

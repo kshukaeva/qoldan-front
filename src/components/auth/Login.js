@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import {FcGoogle} from 'react-icons/fc';
+import './AuthStyle.css';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -71,15 +71,6 @@ function Login() {
         <button type="submit">Login</button>
         </div>
     </form>
-        {/*<div className="google-button-container">*/}
-        {/*  <div className="google-icon-text-container">*/}
-        {/*    <div className="google-icon-container">*/}
-        {/*      <FcGoogle/>*/}
-        {/*    </div>*/}
-        {/*    <h3 className="google-text">Sign Up with Google</h3>*/}
-        {/*  </div>*/}
-        {/*</div>*/}
-
       </div>
   </div>  
 </main>

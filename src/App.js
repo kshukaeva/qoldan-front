@@ -14,7 +14,6 @@ import ForgotPassword from "./components/auth/ForgetPassword";
 import AboutUs from "./components/core/AboutUs";
 import Uploaimagetest from "./components/core/Uploaimagetest";
 import UserDashboard from './components/user/UserDashboard';
-// import CharityPage from "./components/donation/CharityPage";
 import EditProduct from "./components/products/EditProduct";
 import MyProducts from "./components/user/MyProducts";
 import {deleteFromCart, postAddToCart} from "./api/CartAPI";
@@ -106,14 +105,6 @@ function App() {
         setCurrentItems(items);
     }, [items]);
 
-    function chooseCategory(category) {
-        if (category === null) {
-            setCurrentItems(items);
-        } else {
-            setCurrentItems(items.filter((el) => el.category === category));
-        }
-    }
-
     function addToCart(productId, callback, setCallback) {
         postAddToCart(productId)
             .then((response) => {
@@ -170,46 +161,45 @@ function App() {
             });
     }
 
-    return (<div>
-        <Header/>
-        <main>
-            <Routes>
-                <Route path="/login" element={<Login/>}/>
-                <Route path="/register" element={<Register/>}/>
-                <Route path="/" element={<Home currentItems={items} onAdd={addToCart} onRemove={removeFromCart}
-                                               addFavourites={addToFavourites} deleteFavourites={deleteFavourites}/>}/>
-                <Route path="/all"
-                       element={<Products currentItems={currentItems} onAdd={addToCart} onRemove={removeFromCart}
-                                          addFavourites={addToFavourites} chooseCategory={chooseCategory}
-                                          deleteFavourites={deleteFavourites}/>}/>
-                <Route path="/item/:id" element={<ItemCard items={items} onAdd={addToCart} onRemove={removeFromCart}
-                                                           addFavourites={addToFavourites}
-                                                           deleteFavourites={deleteFavourites}
-                                                           addToCart={addToCart} removeFromCart={removeFromCart}/>}/>
-                <Route path="/cart" element={<Cart orders={orders} setOrders={setOrders} onDelete={removeFromCart}/>}/>
-                <Route path="/fav" element={<Bookmark favourites={favourites} setFavourites={setFavourites}
-                                                      onAdd={addToCart} onRemove={removeFromCart}
-                                                      addFavourites={addToFavourites}
-                                                      deleteFavourites={deleteFavourites}/>}/>
-                {/*<Route path="/userprofile" element={<UserProfile/>}/>*/}
-                <Route path="/addproduct" element={<AddProduct/>}/>
-                <Route path="/about-us" element={<AboutUs/>}/>
-                <Route path="/test" element={<Uploaimagetest/>}/>
-                <Route path="/user-profile" element={<UserDashboard/>}/>
-                {/*<Route path="/charity/:charityName" element={<CharityPage/>}/>*/}
-                <Route path="/edit-product/:id" element={<EditProduct/>}/>
-                <Route path="/my-products" element={<MyProducts/>}/>
-                <Route path="/forget-password" element={<ForgotPassword/>}/>
-                <Route path="/admin-profile" element={<AdminDashboard/>}/>
-                <Route path="/organization-dashboard" element={<OrganizationDashboard/>}/>
-                <Route path="/announcements" element={<AnnouncementList/>}/>
-                <Route path="/announcement/:id" element={<AnnouncementDetails/>}/>
-                <Route path="/add-announcement" element={<AddAnnouncement/>}/>
-                <Route path="/edit-announcement/:id" element={<EditAnnouncement/>}/>
-            </Routes>
-        </main>
-        <Footer/>
-    </div>);
+    return (
+        <div className="wrapper">
+                <Header/>
+                <main>
+                    <Routes>
+                        <Route path="/login" element={<Login/>}/>
+                        <Route path="/register" element={<Register/>}/>
+                        <Route path="/" element={<Home currentItems={items} onAdd={addToCart} onRemove={removeFromCart}
+                                                       addFavourites={addToFavourites} deleteFavourites={deleteFavourites}/>}/>
+                        <Route path="/all"
+                               element={<Products currentItems={currentItems} onAdd={addToCart} onRemove={removeFromCart}
+                                                  addFavourites={addToFavourites} deleteFavourites={deleteFavourites}/>}/>
+                        <Route path="/item/:id" element={<ItemCard items={items} onAdd={addToCart} onRemove={removeFromCart}
+                                                                   addFavourites={addToFavourites}
+                                                                   deleteFavourites={deleteFavourites}
+                                                                   addToCart={addToCart} removeFromCart={removeFromCart}/>}/>
+                        <Route path="/cart" element={<Cart orders={orders} setOrders={setOrders} onDelete={removeFromCart}/>}/>
+                        <Route path="/fav" element={<Bookmark favourites={favourites} setFavourites={setFavourites}
+                                                              onAdd={addToCart} onRemove={removeFromCart}
+                                                              addFavourites={addToFavourites}
+                                                              deleteFavourites={deleteFavourites}/>}/>
+                        <Route path="/addproduct" element={<AddProduct/>}/>
+                        <Route path="/about-us" element={<AboutUs/>}/>
+                        <Route path="/test" element={<Uploaimagetest/>}/>
+                        <Route path="/user-profile" element={<UserDashboard/>}/>
+                        <Route path="/edit-product/:id" element={<EditProduct/>}/>
+                        <Route path="/my-products" element={<MyProducts/>}/>
+                        <Route path="/forget-password" element={<ForgotPassword/>}/>
+                        <Route path="/admin-profile" element={<AdminDashboard/>}/>
+                        <Route path="/organization-dashboard" element={<OrganizationDashboard/>}/>
+                        <Route path="/announcements" element={<AnnouncementList/>}/>
+                        <Route path="/announcement/:id" element={<AnnouncementDetails/>}/>
+                        <Route path="/add-announcement" element={<AddAnnouncement/>}/>
+                        <Route path="/edit-announcement/:id" element={<EditAnnouncement/>}/>
+                    </Routes>
+                </main>
+                <Footer/>
+        </div>
+    );
 }
 
 export default App;

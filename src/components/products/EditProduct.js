@@ -5,6 +5,7 @@ import {Link, useNavigate, useParams} from "react-router-dom";
 import {getCategories} from "../../api/CategoryAPI";
 import {getProductTypes} from "../../api/ProductTypeAPI";
 import {getProduct, postProduct, putProduct} from "../../api/ProductsAPI";
+import './ProductStyle.css';
 
 function EditProduct() {
     const { id } = useParams();
@@ -80,7 +81,7 @@ function EditProduct() {
 
     return (
         <div className="add-product-container">
-            <div className="title-container">
+            <div className="edit-title-container">
                 <Link to="/my-products" className="back-button">
                     <IoArrowBackCircle />
                 </Link>
@@ -91,19 +92,18 @@ function EditProduct() {
                     <div className='form-row'>
                         <div className='form-col1'>
                             <label>
-
+                                Product Image:
+                                {/*<input type="text" value={productImage} onChange={handleProductImageChange} />*/}
+                                <Uploaimagetest image={image} setImage={setImage} fileName={fileName} setFileName={setFileName} />
+                            </label>
+                        </div>
+                        <div className='form-col2'>
+                            <label>
                                 Product Name:
                                 <input type="text"
                                        value={product.title}
                                        onChange={(e) => setProduct({...product, title: e.target.value})}/>
                             </label>
-                            <label>
-                                Product Description:
-                                <textarea style={{height: '135px'}}
-                                          value={product.summary}
-                                          onChange={(e) => setProduct({...product, summary: e.target.value})} />
-                            </label>
-
                             <label>
                                 Price:
                                 <input type="number"
@@ -111,14 +111,6 @@ function EditProduct() {
                                        value={product.price}
                                        onChange={(e) => setProduct({...product, price: e.target.value})} />
                             </label>
-                        </div>
-                        <div className='form-col2'>
-                            <label>
-                                Image URL:
-                                {/*<input type="text" value={productImage} onChange={handleProductImageChange} />*/}
-                                <Uploaimagetest image={image} setImage={setImage} fileName={fileName} setFileName={setFileName} />
-                            </label>
-
                             <label>
                                 Category:
                                 <select
@@ -144,6 +136,12 @@ function EditProduct() {
                                         </option>
                                     ))}
                                 </select>
+                            </label>
+                            <label>
+                                Product Description:
+                                <textarea style={{height: '135px'}}
+                                          value={product.summary}
+                                          onChange={(e) => setProduct({...product, summary: e.target.value})} />
                             </label>
                         </div>
 

@@ -1,17 +1,18 @@
-import React, {useState, useEffect} from 'react';
-import Categories from './Categories';
+import React, { useState, useEffect } from 'react';
 import Items from './Items';
-import {useNavigate, useParams} from 'react-router-dom';
-import {getProductPages, getProducts} from "../../api/ProductsAPI";
-import {BsFilterRight, BsSearch} from "react-icons/bs";
-import Pagination from "../core/Pagination";
-
+import { useNavigate, useParams } from 'react-router-dom';
+import { getProductPages, getProducts } from '../../api/ProductsAPI';
+import Pagination from '../core/Pagination';
+import { getCategories } from '../../api/CategoryAPI';
+import { getProductTypes } from '../../api/ProductTypeAPI';
+import './ProductStyle.css';
 function AllProduct(props) {
     const navigate = useNavigate();
-    const [ products, setProducts ] = useState([]);
-    const [ callback, setCallback ] = useState(false);
+    const [products, setProducts] = useState([]);
+    const [callback, setCallback] = useState(false);
+    const [categories, setCategories] = useState([]); // Define the categories state
+    const [typeData, setTypeData] = useState([]); // Define the categories state
 
-    const [showCategories, setShowCategories] = useState(false);
     const [totalPages, setTotalPages] = useState(1);
     const [currentPage, setCurrentPage] = useState(1); // Current page number
     const itemsPerPage = 16; // Number of items to display per page
@@ -34,7 +35,23 @@ function AllProduct(props) {
                 alert(error.response.data);
             })
             .finally(() => {});
-    }, [callback]);
+
+        getCategories()
+            .then((response) => {
+                setCategories(response.data);
+            })
+            .catch((error) => {
+                alert(error.response.data);
+            });
+
+        getProductTypes()
+            .then((response)=>{
+            setTypeData(response.data);
+            })
+            .catch((error) =>{
+            alert(error.response.data);
+            });
+    }, [callback, currentPage]);
 
     const handleItemCardClick = (itemId) => {
         navigate(`/item/${itemId}`);
@@ -44,27 +61,50 @@ function AllProduct(props) {
         setCurrentPage(pageNumber);
         setCallback(!callback);
     };
+
     return (
         <div className='all'>
-            <div className='all-search-bar'>
-                <input type='text' placeholder='Search by Product, Category or ...' />
-                <div className='all-icons'>
-                    <BsFilterRight
-                        className={`all-filter-icon ${showCategories ? 'active' : ''}`}
-                        onClick={() => setShowCategories(!showCategories)}
-                    />
-                    <BsSearch className='all-search-icon' />
-                </div>
+            <div className='filter'>
+                <label>
+                    <select>
+                        <option value=''>Product Type</option>
+                        {typeData.map((type) => (
+                            <option key={type.id} value={type.id}>
+                                {type.title}
+                            </option>
+                        ))}
+                    </select>
+                </label>
+                <label>
+                    <select>
+                        <option value=''>Category</option>
+                        {categories.map((category) => (
+                            <option key={category.id} value={category.id}>
+                                {category.title}
+                            </option>
+                        ))}
+                    </select>
+                </label>
+                <label>
+                    <select>
+                        <option value=''>Sort</option>
+                        <option value='newest'>Newest</option>
+                        <option value='oldest'>Oldest</option>
+                        <option value='priceHighLow'>Price: High-Low</option>
+                        <option value='priceLowHigh'>Price: Low-High</option>
+                    </select>
+                </label>
             </div>
-            {showCategories && <Categories chooseCategory={props.chooseCategory} />}
-            <Items items={products}
-                   onAdd={props.onAdd}
-                   onRemove={props.onRemove}
-                   addFavourites={props.addFavourites}
-                   deleteFavourites={props.deleteFavourites}
-                   onItemClick={handleItemCardClick}
-                   callback={callback}
-                   setCallback={setCallback}/>
+            <Items
+                items={products}
+                onAdd={props.onAdd}
+                onRemove={props.onRemove}
+                addFavourites={props.addFavourites}
+                deleteFavourites={props.deleteFavourites}
+                onItemClick={handleItemCardClick}
+                callback={callback}
+                setCallback={setCallback}
+            />
             <Pagination
                 currentPage={currentPage}
                 totalPages={totalPages}

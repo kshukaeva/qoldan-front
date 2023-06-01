@@ -1,0 +1,112 @@
+/* bookmark */
+.bookmark-container {
+    width: 1200px;
+    margin: 50px auto;
+}
+
+.bookmark-container .fc-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 700;
+    font-size: 28px;
+    color: #1E1E1E;
+}
+
+.bookmark-container .empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.bookmark {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: first baseline;
+}
+
+/* all items */
+
+.bookmark .items {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding: 10px;
+}
+.bookmark .item-image-container {
+    position: relative;
+    text-align: center;
+    background-color: #ffffff;
+}
+
+.bookmark .item-image-container .fav {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #ec8a8a;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.bookmark .fav-item{
+    width: 23%;
+    margin-bottom: 50px;
+    margin-left: 20px;
+    background: #ffffff;
+    overflow: hidden;
+    position: relative;
+    padding-bottom: 20px;
+}
+
+.bookmark .fav-item img {
+    width: 100%;
+    border-radius: 10px 10px 10px 10px;
+    transition: transform 500ms ease;
+    max-height: 270px;
+    min-height: 270px;
+}
+
+.bookmark .fav-item img:hover{
+    transform: scale(1.05);
+}
+.bookmark .fav-item h2{
+    margin: 7px 12px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 27px;
+    color: #1E1E1E;
+    cursor: pointer;
+}
+.bookmark .fav-item b{
+    margin: 10px 12px;
+    color: #1E1E1E7F;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 27px;
+}
+
+.bookmark .fav-item .add-to-cart{
+    position: absolute;
+    right: 10px;
+    bottom: 37px;
+    width: 23px;
+    height: 23px;
+    text-align: center;
+    line-height: 35px;
+    color: rgba(0, 128, 128, 0.86);
+    cursor: pointer;
+    font-weight: 600;
+    transition: tranform 500ms ease;
+}
+
+.bookmark .fav-item .add-to-cart:hover{
+    transform: scale(1.05) translateY(-5px);
+}
+
+

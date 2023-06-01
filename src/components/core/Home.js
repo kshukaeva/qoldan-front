@@ -4,7 +4,7 @@ import Items from '../products/Items';
 import {TbArrowNarrowRight} from 'react-icons/tb';
 import useApiCall from "../../api/useApiCall";
 import {getProducts} from "../../api/ProductsAPI";
-import img from "../../img/img.png"
+import img from "../../img/home1.png"
 
 function Home(props) {
   const navigate = useNavigate();
@@ -38,7 +38,9 @@ function Home(props) {
     console.log(itemsToShow);
   return (
     <div className='home'>
-      <div className='presentation'></div>
+      <div className='presentation'>
+          <span className='presentation-btn' onClick={() => navigate('/addproduct')}>Sell Now</span>
+      </div>
 
         <Items items={itemsToShow}
                onAdd={props.onAdd}

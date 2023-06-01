@@ -107,6 +107,7 @@
     padding: 5px;
     border-radius: 5px;
     border: 1px solid #ccc;
+    font-size: 18px;
 }
 
 .list-of-my-products .details-form .date-inputs {
@@ -149,7 +150,7 @@
     border-radius: 10px;
 }
 .add-new-product-button {
-    background-color: #8dc0c0;
+    border: 2px solid #C1DCDC;
     padding: 5px 10px;
     display: inline-block;
     cursor: pointer;
