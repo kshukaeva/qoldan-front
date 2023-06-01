@@ -65,7 +65,6 @@ function AddProduct() {
     }
 
     const sendPostProductRequest = () => {
-        console.log("PRODUCT: ", product);
         postProduct(data)
             .then((response) => {
                 navigate(`/item/${response.data}`);

@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {FiHeart, FiShoppingCart, FiUser} from 'react-icons/fi';
+import {FiGrid, FiHeart, FiShoppingCart, FiUser} from 'react-icons/fi';
 import logo from '../../img/logo.png';
+import {getUserDashboardUrl} from "../../api/useApiCall";
 
 export default function Header(props) {
     const [userData, setUserData] = useState({});
+    const userType = localStorage.getItem('userType');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -36,21 +38,37 @@ export default function Header(props) {
                 </div>
             </div>
             <div className="center">
-                <ul className="nav">
-                    <li onClick={() => handleClick('/')}>Home</li>
-                    <li onClick={() => handleClick('/all')}>Products</li>
-                    <li onClick={() => handleClick('/announcements')}>Donation</li>
-                </ul>
+                {userType === 'USER' || userType === null ? (
+                    <ul className="nav">
+                        <li onClick={() => handleClick('/')}>Home</li>
+                        <li onClick={() => handleClick('/all')}>Products</li>
+                        <li onClick={() => handleClick('/announcements')}>Donation</li>
+                        <li onClick={() => handleClick('/about-us')}>About Us</li>
+                    </ul>
+                ) : (
+                    <ul className="nav">
+                        <li onClick={() => handleClick(getUserDashboardUrl())}> <FiGrid/> Dashboard</li>
+                    </ul>
+                )}
+
             </div>
             <div className="right-side">
-                <FiShoppingCart onClick={() => handleClick('/cart')} className={`shop-cart-button`}/>
-                <FiHeart onClick={() => handleClick('/fav')} className="fav"/>
-                {isLoggedIn ? (
-                    <img src={'../img/' + 'clothes.jpg'} alt="Logo" onClick={() => handleClick('/user-profile')}
-                         className="login-icon"/>
+                {userType === 'USER' || userType === null ? (
+                    <span>
+                        <FiShoppingCart onClick={() => handleClick('/cart')} className={`shop-cart-button`}/>
+                        <FiHeart onClick={() => handleClick('/fav')} className="fav"/>
+                        {isLoggedIn && userType === 'USER' ? (
+                            <img src={'../img/' + 'clothes.jpg'} alt="Logo" onClick={() => handleClick(getUserDashboardUrl())}
+                                 className="login-icon"/>
+                        ) : (
+                            <FiUser onClick={() => handleClick(getUserDashboardUrl())} className="login-icon"/>
+                        )}
+                    </span>
                 ) : (
-                    <FiUser onClick={() => handleClick('/login')} className="login-icon"/>
+                    <span></span>
                 )}
+
+
             </div>
         </header>
     );

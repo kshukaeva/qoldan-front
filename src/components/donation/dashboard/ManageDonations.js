@@ -1,105 +1,74 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
+import {getDonationsToOrganization, putDonationStatus} from "../../../api/DonationAPI";
+import {getImageUrl} from "../../../api/ImageAPI";
 
-const ManageDonations = ({ organizationId }) => {
-    const [donations, setDonations] = useState([]);
-    const [userData, setUserData] = useState([]);
-    const [announcements, setAnnouncements] = useState([]);
+const ManageDonations = () => {
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const fetchDonations = async () => {
-            try {
-                const response = await fetch('/donationData.json');
-                const data = await response.json();
-                const organizationDonations = data.filter((donation) => donation.organizationId === parseInt(organizationId));
-                setDonations(organizationDonations);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-
-        const fetchUserData = async () => {
-            try {
-                const response = await fetch('/userData.json');
-                const data = await response.json();
-                setUserData(data);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-
-        const fetchAnnouncements = async () => {
-            try {
-                const response = await fetch('/announcementsData.json');
-                const data = await response.json();
-                setAnnouncements(data);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-
-        fetchDonations();
-        fetchUserData();
-        fetchAnnouncements();
-    }, [organizationId]);
+    const [donations, setDonations] = useState([]);
+    const [callback, setCallback] = useState(false);
 
     const navigateToAnnouncement = (announcementId) => {
         navigate(`/announcement/${announcementId}`);
     };
 
-    const getUsernameById = (userId) => {
-        const user = userData.find((user) => user.userID === userId);
-        return user ? user.username : '';
-    };
-
-    const getAnnouncementTitleById = (announcementId) => {
-        const announcement = announcements.find((announcement) => announcement.id === announcementId);
-        return announcement ? announcement.title : '';
-    };
-
-    const handleAccept = (donationId) => {
+    const handleDonation = (donationId, status) => {
         // Implement accept logic here
-        console.log(`Accept donation with ID: ${donationId}`);
+        putDonationStatus(donationId, status)
+            .then((response) => {
+                setCallback(!callback);
+            }).catch((error) => {
+                alert(error.response.data);
+            });
     };
 
-    const handleReject = (donationId) => {
-        // Implement reject logic here
-        console.log(`Reject donation with ID: ${donationId}`);
-    };
+    useEffect(() => {
+        getDonationsToOrganization()
+            .then((response) => {
+                setDonations(response.data);
+            }).catch((error) => {
+                alert(error.response.data);
+            })
+    }, [callback]);
 
     return (<div className="manage-donations-container">
-            <h3>Manage Donations</h3>
-            {donations.length === 0 ? (<p>No donations found for this organization.</p>) : (
-                <ul className="donation-list">
-                    {donations.map((donation) => (<li className="donation-item" key={donation.id}>
-                            <div className='img-container'>
-                                <img src={`../img/${donation.image}`} alt="Donation"/>
-                            </div>
-                            <div className="donation-details">
-                                <p>Username: {getUsernameById(donation.userId)}</p>
-                                <b onClick={() => navigateToAnnouncement(donation.announcementId)}>Title: {getAnnouncementTitleById(donation.announcementId)}</b>
-                                <p>Product Name: {donation.productName}</p>
-                                <p>Product Description: {donation.productDescription}</p>
-                                <p>Quantity: {donation.quantity}</p>
-                            </div>
-                            <div className="donation-actions">
-                                <button
-                                    className="accept-btn"
-                                    onClick={() => handleAccept(donation.id)}
-                                >
-                                    Accept
-                                </button>
-                                <button
-                                    className="reject-btn"
-                                    onClick={() => handleReject(donation.id)}
-                                >
-                                    Reject
-                                </button>
-                            </div>
-                        </li>))}
-                </ul>)}
-        </div>);
+        <h3>Manage Donations</h3>
+        {donations.length === 0 ? (<p>No donations found for this organization.</p>) : (
+            <ul className="donation-list">
+                {donations.map((donation) => (<li className="donation-item" key={donation.id}>
+                    <div className='img-container'>
+                        <img src={getImageUrl(donation.itemImageId)} alt="Donation"/>
+                    </div>
+                    <div className="donation-details">
+                        <p>Username: {donation.username}</p>
+                        <b onClick={() => navigateToAnnouncement(donation.announcementId)}>Title: {donation.announcementTitle}</b>
+                        <p>Product Name: {donation.itemTitle}</p>
+                        <p>Product Description: {donation.itemSummary}</p>
+                        <p>Quantity: {donation.quantity}</p>
+                    </div>
+
+                    {donation.status === "PENDING" ? (
+                        <div className="donation-actions">
+                            <button
+                                className="accept-btn"
+                                onClick={() => handleDonation(donation.id, "CONFIRMED")}
+                            >
+                                Accept
+                            </button>
+                            <button
+                                className="reject-btn"
+                                onClick={() => handleDonation(donation.id, "REJECTED")}
+                            >
+                                Reject
+                            </button>
+                        </div>
+                    ) : (
+                        <div></div>
+                    )}
+                </li>))}
+            </ul>)}
+    </div>);
 };
 
 export default ManageDonations;

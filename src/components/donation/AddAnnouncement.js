@@ -1,26 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import {getCategories} from "../../api/CategoryAPI";
+import {postAnnouncement} from "../../api/DonationAnnouncementAPI";
 
 const AddAnnouncement = () => {
     const navigate = useNavigate();
     const [title, setTitle] = useState('');
-    const [categoryId, setCategoryId] = useState('');
     const [description, setDescription] = useState('');
-    const [quantity, setQuantity] = useState(0);
+    const [quantityNeeded, setQuantityNeeded] = useState(0);
+    const [category, setCategory] = useState('');
+
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
-        const fetchCategories = async () => {
-            try {
-                const response = await fetch('/categories.json');
-                const data = await response.json();
-                setCategories(data);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-
-        fetchCategories();
+        getCategories()
+            .then((response) => {
+                setCategories(response.data);
+            })
+            .catch((error) => {
+                alert(error.response.data);
+            })
+            .finally(() => {});
     }, []);
 
     const handleTitleChange = (event) => {
@@ -28,7 +28,7 @@ const AddAnnouncement = () => {
     };
 
     const handleCategoryChange = (event) => {
-        setCategoryId(event.target.value);
+        setCategory(event.target.value);
     };
 
     const handleDescriptionChange = (event) => {
@@ -36,13 +36,19 @@ const AddAnnouncement = () => {
     };
 
     const handleQuantityChange = (event) => {
-        setQuantity(Number(event.target.value));
+        setQuantityNeeded(Number(event.target.value));
     };
 
     const handleSubmit = (event) => {
         event.preventDefault();
         // submission logic
-        console.log('Announcement added:', { title, categoryId, description, quantity });
+        const data = { title, description, quantityNeeded, category }
+        postAnnouncement(data)
+            .then((response) => {
+                navigate('/organization-dashboard');
+            }).catch((error) => {
+                alert(error.response.data);
+            });
     };
 
     return (
@@ -65,13 +71,13 @@ const AddAnnouncement = () => {
                     <select
                         id="category"
                         className="form-control"
-                        value={categoryId}
+                        value={category}
                         onChange={handleCategoryChange}
                         required
                     >
                         <option value="">Select category...</option>
                         {categories.map((category) => (
-                            <option key={category.id} value={category.id}>
+                            <option key={category.id} value={category.title}>
                                 {category.title}
                             </option>
                         ))}
@@ -93,7 +99,7 @@ const AddAnnouncement = () => {
                         type="number"
                         id="quantity"
                         className="form-control"
-                        value={quantity}
+                        value={quantityNeeded}
                         onChange={handleQuantityChange}
                         min={1}
                         required

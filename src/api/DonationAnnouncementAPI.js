@@ -1,34 +1,17 @@
 import axios from "axios";
 import {apiBaseUrl} from "./useApiCall";
 
-export const postAddToCart = async (productId) => {
-    try {
-        const params = {
-            productId: productId
-        }
-        const headers = {
-            'Authorization': 'Bearer ' + localStorage.getItem('token')
-        }
-        const response = await axios.post(
-            apiBaseUrl + "/my-cart",
-            { }, { params, headers }
-        )
-        return response;
-    } catch (error) {
-        throw error;
-    }
-}
+const apiUrl = apiBaseUrl + "/donation-announcements";
 
-export const deleteFromCart = async (productId) => {
+// GET requests
+export const getAnnouncements = async (status, organizationName) => {
     try {
-        const params = {
-            productId: productId
-        }
+        let params = { status, organizationName }
         const headers = {
             'Authorization': 'Bearer ' + localStorage.getItem('token')
-        }
-        const response = await axios.delete(
-             apiBaseUrl + "/my-cart",
+        };
+        const response = await axios.get(
+            apiUrl,
             { params, headers }
         )
         return response;
@@ -37,20 +20,30 @@ export const deleteFromCart = async (productId) => {
     }
 }
 
-export const getMyCart = async (limit, offset) => {
+export const getMyAnnouncements = async (status) => {
+    try {
+        let params = { status }
+        const headers = {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        };
+        const response = await axios.get(
+            apiUrl + "/my",
+            { params, headers }
+        )
+        return response;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export const getAnnouncementWithId = async (id) => {
     try {
         let params = {}
-        if (limit != null)
-            params = {...params, limit: limit}
-        if (offset != null)
-            params = {...params, offset: offset}
-
         const headers = {
             'Authorization': 'Bearer ' + localStorage.getItem('token')
-        }
-
+        };
         const response = await axios.get(
-            apiBaseUrl + "/my-cart",
+            apiUrl + "/" + id,
             { params, headers }
         )
         return response;
@@ -59,15 +52,17 @@ export const getMyCart = async (limit, offset) => {
     }
 }
 
-export const postBookCart = async () => {
+// POST requests
+export const postAnnouncement = async (data) => {
     try {
         const params = {}
         const headers = {
             'Authorization': 'Bearer ' + localStorage.getItem('token')
-        }
+        };
         const response = await axios.post(
-            apiBaseUrl + "/my-cart/book",
-            { }, { params, headers }
+            apiUrl,
+            data,
+            { params, headers }
         )
         return response;
     } catch (error) {
@@ -75,15 +70,17 @@ export const postBookCart = async () => {
     }
 }
 
-export const postUnbookCart = async () => {
+// PUT requests
+export const putUpdateAnnouncement = async (data) => {
     try {
         const params = {}
         const headers = {
             'Authorization': 'Bearer ' + localStorage.getItem('token')
-        }
-        const response = await axios.post(
-            apiBaseUrl + "/my-cart/unbook",
-            { }, { params, headers }
+        };
+        const response = await axios.put(
+            apiUrl + "/" + data.id,
+            data,
+            { params, headers }
         )
         return response;
     } catch (error) {

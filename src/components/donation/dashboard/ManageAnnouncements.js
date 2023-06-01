@@ -1,28 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
-import { AiOutlineEdit } from 'react-icons/ai';
-import { MdDeleteOutline } from 'react-icons/md';
+import {AiOutlineEdit} from 'react-icons/ai';
+import {MdDeleteOutline} from 'react-icons/md';
+import {getMyAnnouncements} from "../../../api/DonationAnnouncementAPI";
 
-const ManageAnnouncements = ({ organizationId }) => {
+const ManageAnnouncements = () => {
     const [announcements, setAnnouncements] = useState([]);
+    const [status, setStatus] = useState(null);
+    const [callback, setCallback] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchAnnouncements = async () => {
-            try {
-                const response = await fetch('/announcementsData.json');
-                const data = await response.json();
-                const organizationAnnouncements = data.filter(
-                    (announcement) => announcement.organizationId === parseInt(organizationId)
-                );
-                setAnnouncements(organizationAnnouncements);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-
-        fetchAnnouncements();
-    }, [organizationId]);
+        getMyAnnouncements(status)
+            .then((response) => {
+                setAnnouncements(response.data);
+            }).catch((error) => {
+                alert(error.response.data);
+            });
+    }, [callback]);
 
     const handleEditAnnouncement = (announcementId) => {
         navigate(`/edit-announcement/${announcementId}`);
@@ -53,9 +48,9 @@ const ManageAnnouncements = ({ organizationId }) => {
                             <div className="donation-progress">
                                 <div
                                     className="donation-progress-bar"
-                                    style={{ width: `${calculateDonationProgress(announcement.currentQuantity, announcement.targetQuantity)}%` }}
+                                    style={{ width: `${calculateDonationProgress(announcement.quantityCollected, announcement.quantityNeeded)}%` }}
                                 >
-                                    {calculateDonationProgress(announcement.currentQuantity, announcement.targetQuantity)}%
+                                    {calculateDonationProgress(announcement.quantityCollected, announcement.quantityNeeded)}%
                                 </div>
                             </div>
                         </div>
@@ -64,10 +59,10 @@ const ManageAnnouncements = ({ organizationId }) => {
                                 className="announcement-edit-icon"
                                 onClick={() => handleEditAnnouncement(announcement.id)}
                             />
-                            <MdDeleteOutline
-                                className="announcement-delete-icon"
-                                onClick={() => handleDeleteAnnouncement(announcement.id)}
-                            />
+                            {/*<MdDeleteOutline*/}
+                            {/*    className="announcement-delete-icon"*/}
+                            {/*    onClick={() => handleDeleteAnnouncement(announcement.id)}*/}
+                            {/*/>*/}
                         </div>
                     </div>
                 ))}

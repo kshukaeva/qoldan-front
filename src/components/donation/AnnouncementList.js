@@ -1,66 +1,28 @@
 import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import './DonationPage.css';
+import {getAnnouncements} from "../../api/DonationAnnouncementAPI";
 
 const AnnouncementList = () => {
     const [announcements, setAnnouncements] = useState([]);
-    const [organizations, setOrganizations] = useState([]);
-    const [categories, setCategories] = useState([]);
+    const [callback, setCallback] = useState(false);
+
+    const [status, setStatus] = useState(null);
+    const [organizationName, setOrganizationName] = useState(null);
 
     useEffect(() => {
-        const fetchAnnouncements = async () => {
-            try {
-                const response = await fetch('/announcementsData.json');
-                const data = await response.json();
-                setAnnouncements(data);
-            } catch (error) {
-                console.error(error);
-            }
-        };
+        getAnnouncements(status, organizationName)
+            .then((response) => {
+                setAnnouncements(response.data);
+            }).catch((error) => {
+                alert(error.response.data);
+            });
 
-        const fetchOrganizations = async () => {
-            try {
-                const response = await fetch('/organizationsData.json');
-                const data = await response.json();
-                setOrganizations(data);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-
-        const fetchCategories = async () => {
-            try {
-                const response = await fetch('/categories.json');
-                const data = await response.json();
-                setCategories(data);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-
-        fetchAnnouncements();
-        fetchOrganizations();
-        fetchCategories();
-    }, []);
+    }, [callback]);
 
     const calculateDonationProgress = (currentQuantity, targetQuantity) => {
         const percentage = (currentQuantity / targetQuantity) * 100;
         return Math.round(percentage);
-    };
-
-    const getOrganizationImageUrl = (organizationId) => {
-        const organization = organizations.find((org) => org.id === organizationId);
-        return organization ? organization.imageUrl : '';
-    };
-
-    const getOrganizationName = (organizationId) => {
-        const organization = organizations.find((org) => org.id === organizationId);
-        return organization ? organization.name : '';
-    };
-
-    const getCategoryTitle = (categoryId) => {
-        const category = categories.find((cat) => cat.id === categoryId);
-        return category ? category.title : '';
     };
 
     return (
@@ -69,17 +31,17 @@ const AnnouncementList = () => {
             {announcements.map((announcement) => (
                 <div className="announcement-card" key={announcement.id}>
                     <div className="announcement-card-left">
-                        <img src={`../img/${getOrganizationImageUrl(announcement.organizationId)}`} alt="Announcement"/>
+                        <img src={"../img/organization.jpg"} alt="Announcement"/>
                         <div className="announcement-card-left-info">
                             <h3>{announcement.title}</h3>
-                            <p>{getOrganizationName(announcement.organizationId)}</p>
-                            <p className="announcement-category">{getCategoryTitle(announcement.categoryId)}</p>
+                            <p>{announcement.organization}</p>
+                            <p className="announcement-category">{announcement.category}</p>
                             <div className="donation-progress">
                                 <div
                                     className="donation-progress-bar"
-                                    style={{ width: `${calculateDonationProgress(announcement.currentQuantity, announcement.targetQuantity)}%` }}
+                                    style={{ width: `${calculateDonationProgress(announcement.quantityCollected, announcement.quantityNeeded)}%` }}
                                 >
-                                    {calculateDonationProgress(announcement.currentQuantity, announcement.targetQuantity)}%
+                                    {calculateDonationProgress(announcement.quantityCollected, announcement.quantityNeeded)}%
                                 </div>
                             </div>
                         </div>

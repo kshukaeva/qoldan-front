@@ -1,7 +1,7 @@
 import axios from "axios";
 import {apiBaseUrl} from "./useApiCall";
 
-export const getProfile = async () => {
+export const getMyOrganization = async () => {
     try {
         let params = {}
 
@@ -9,8 +9,10 @@ export const getProfile = async () => {
             'Authorization': 'Bearer ' + localStorage.getItem('token')
         }
 
+        let id = localStorage.getItem('organizationId');
+
         const response = await axios.get(
-            apiBaseUrl + "/my-profile",
+            apiBaseUrl + "/organization/" + id,
             { params, headers }
         )
         return response;
@@ -19,32 +21,14 @@ export const getProfile = async () => {
     }
 }
 
-export const getUserType = async () => {
-    try {
-        let params = {}
-
-        const headers = {
-            'Authorization': 'Bearer ' + localStorage.getItem('token')
-        }
-
-        const response = await axios.get(
-            apiBaseUrl + "/my-profile/type",
-            { params, headers }
-        )
-        return response;
-    } catch (error) {
-        throw error;
-    }
-}
-
-export const putUpdateProfile = async (userData) => {
+export const putUpdateOrganization = async (data) => {
     try {
         const headers = {
             'Authorization': 'Bearer ' + localStorage.getItem('token')
         };
         const response = await axios.put(
-            apiBaseUrl + "/my-profile",
-            userData,
+            apiBaseUrl + "/organization/" + data.id,
+            data,
             { headers }
         )
         return response;

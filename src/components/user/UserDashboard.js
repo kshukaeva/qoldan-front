@@ -14,6 +14,7 @@ import MyOrders from './MyOrders';
 import SoldProducts from "./SoldProducts";
 import {useNavigate} from "react-router-dom";
 import {getProfile} from "../../api/UserAPI";
+import {handleLogout} from "../../api/useApiCall";
 const UserDashboard = () => {
     const storedDisplayData = localStorage.getItem('displayData');
 
@@ -22,19 +23,6 @@ const UserDashboard = () => {
     const [orderStatus, setOrderStatus] = useState('all');
     const [soldStatus, setSoldStatus] = useState('all');
     const navigate = useNavigate();
-
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             const response = await fetch('/userData.json');
-    //             const data = await response.json();
-    //             setUserData(data);
-    //         } catch (error) {
-    //             console.error(error);
-    //         }
-    //     };
-    //     fetchData();
-    // }, []);
 
     useEffect(() => {
         localStorage.setItem('displayData', displayData);
@@ -86,11 +74,6 @@ const UserDashboard = () => {
 
     };
 
-    const handleLogout = () => {
-        localStorage.removeItem("token");
-        navigate('/login');
-    }
-
     return (
         <div className='user-main-dash'>
             <div className='user-profile-left'>
@@ -126,7 +109,7 @@ const UserDashboard = () => {
                     </div>
                 </div>
                 <div className='list-of-separation'>
-                    <div className='buttn' onClick={() => handleLogout()}><BiLogOut/> Sign Out</div>
+                    <div className='buttn' onClick={() => handleLogout(navigate)}><BiLogOut/> Sign Out</div>
                 </div>
             </div>
             <div className='list-of-products'>

@@ -30,10 +30,13 @@ export default function Register() {
             }
           }
       );
-      const { token } = response.data;
+      const { token, userId, username, userType, organizationId } = response.data;
 
-      localStorage.setItem("token", response.data.token);
-      localStorage.setItem('username', state.email);
+      localStorage.setItem('token', token);
+      localStorage.setItem('userId', userId);
+      localStorage.setItem('username', username);
+      localStorage.setItem('userType', userType);
+      localStorage.setItem('organizationId', organizationId);
       navigate('/all');
     } catch (error) {
       if (error.response) {

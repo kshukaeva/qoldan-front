@@ -1,16 +1,17 @@
 import axios from "axios";
 import {apiBaseUrl} from "./useApiCall";
 
-const apiUrl = apiBaseUrl + "/product-type";
+const apiUrl = apiBaseUrl + "/donations";
 
-export const getProductTypes = async () => {
+// GET Requests
+export const getDonationsToOrganization = async () => {
     try {
-        let params = {}
-
-        const headers = {}
-
+        const params = {}
+        const headers = {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        };
         const response = await axios.get(
-            apiUrl,
+            apiUrl + "/to-organization",
             { params, headers }
         )
         return response;
@@ -19,10 +20,10 @@ export const getProductTypes = async () => {
     }
 }
 
-export const postProductType = async (title) => {
+// POST Requests
+export const postDonation = async (data) => {
     try {
-        const data = { title };
-        const params = {};
+        const params = {}
         const headers = {
             'Authorization': 'Bearer ' + localStorage.getItem('token')
         };
@@ -37,31 +38,16 @@ export const postProductType = async (title) => {
     }
 }
 
-export const putProductType = async (data) => {
+// PUT Requests
+export const putDonationStatus = async (id, status) => {
     try {
-        const params = {};
+        const params = { status }
         const headers = {
             'Authorization': 'Bearer ' + localStorage.getItem('token')
         };
         const response = await axios.put(
-            apiUrl + "/" + data.id,
-            data,
-            { params, headers }
-        )
-        return response;
-    } catch (error) {
-        throw error;
-    }
-}
-
-export const deleteProductType = async (id) => {
-    try {
-        const params = {};
-        const headers = {
-            'Authorization': 'Bearer ' + localStorage.getItem('token')
-        };
-        const response = await axios.delete(
-            apiUrl + "/" + id,
+            apiUrl + "/to-organization/" + id,
+            {},
             { params, headers }
         )
         return response;

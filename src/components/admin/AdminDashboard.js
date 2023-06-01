@@ -7,70 +7,76 @@ import { BsClipboardData, BsPlusCircle } from 'react-icons/bs';
 import UserDetails from '../user/UserDetails';
 import ManageUsers from './ManageUsers';
 import ManageProducts from './ManageProducts';
-import AddCategory from './AddCategory';
+import {handleLogout} from "../../api/useApiCall";
+import {BiCategory, BiLogOut} from "react-icons/bi";
+import {FiTag} from "react-icons/fi";
+import ManageCategories from "./ManageCategories";
+import ManageProductTypes from "./ManageProductTypes";
+import {getProfile} from "../../api/UserAPI";
 
 const AdminDashboard = () => {
+    const storedDisplayData = localStorage.getItem('displayData');
     const [userData, setUserData] = useState({});
-    const [displayData, setDisplayData] = useState('');
+    const [displayData, setDisplayData] = useState(storedDisplayData ? storedDisplayData : '');
+    const [callback, setCallback] = useState(false);
 
     const navigate = useNavigate();
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch('/userData.json');
-                const data = await response.json();
-
-                // Filter the user data to retrieve the admin user
-                const adminUser = data.find((user) => user.role === 'admin');
-
-                setUserData(adminUser);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-
-        fetchData();
-    }, []);
 
     const handleDisplayDataChange = (data) => {
         setDisplayData(data);
     };
 
-    const handleClick = (path) => {
-        navigate(path);
-    };
+    useEffect(() => {
+        localStorage.setItem('displayData', displayData);
+        getProfile()
+            .then((response) => {
+                setUserData(response.data);
+            }).catch((error) => {
+                alert(error.response.data);
+            });
+    }, [displayData, callback]);
 
     return (
         <div className="admin-main-dash">
             <div className="admin-profile-left">
                 <div className="admin-profile-dash">
-                    <img src={'../img/' + userData.imageUrl} alt="user-icon" />
+                    <img src={'../img/clothes.jpg'} alt="user-icon"/>
                     <p>Welcome,</p>
-                    <p>{userData.firstName}!</p>
-                    <p className="email">Your email address is {userData.email}.</p>
-                    <p className="location">You are located in {userData.city}.</p>
+                    <p>{userData.firstname} {userData.lastname}!</p>
+                    <p className='email'>Your email address is {userData.email}.</p>
+                    <p className='mobile'>Your mobile phone is {userData.mobile}.</p>
                 </div>
                 <div className="list-of-separation">
                     <div className="buttn" onClick={() => handleDisplayDataChange('detailProfile')}>
                         <FaRegAddressCard /> My Details
                     </div>
-                    <div className="buttn" onClick={() => handleDisplayDataChange('manageUsers')}>
-                        <FaUserFriends /> Manage Users
+                </div>
+                <div className="list-of-separation">
+                    {/*<div className="buttn" onClick={() => handleDisplayDataChange('manageUsers')}>*/}
+                    {/*    <FaUserFriends /> Manage Users*/}
+                    {/*</div>*/}
+                    {/*<div className="buttn" onClick={() => handleDisplayDataChange('manageProducts')}>*/}
+                    {/*    <BsClipboardData /> Manage Products*/}
+                    {/*</div>*/}
+                    <div className="buttn" onClick={() => handleDisplayDataChange('manageCategories')}>
+                        <BiCategory /> Manage Categories
                     </div>
-                    <div className="buttn" onClick={() => handleDisplayDataChange('manageProducts')}>
-                        <BsClipboardData /> Manage Products
+                    <div className="buttn" onClick={() => handleDisplayDataChange('manageTypes')}>
+                        <FiTag /> Manage Types
                     </div>
-                    <div className="buttn" onClick={() => handleDisplayDataChange('addCategory')}>
-                        <BsPlusCircle /> Add Category
+                </div>
+                <div className="list-of-separation">
+                    <div className='buttn' onClick={() => handleLogout(navigate)}>
+                        <BiLogOut/> Sign Out
                     </div>
                 </div>
             </div>
             <div className="admin-content">
-                {displayData === 'detailProfile' && <UserDetails userData={userData} />}
+                {displayData === 'detailProfile' && <UserDetails userData={userData} callback={callback} setCallback={setCallback}/>}
                 {displayData === 'manageUsers' && <ManageUsers />}
                 {displayData === 'manageProducts' && <ManageProducts />}
-                {displayData === 'addCategory' && <AddCategory />}
+                {displayData === 'manageCategories' && <ManageCategories />}
+                {displayData === 'manageTypes' && <ManageProductTypes />}
             </div>
         </div>
     );

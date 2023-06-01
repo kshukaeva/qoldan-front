@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {apiBaseUrl} from "./useApiCall";
 
 // GET requests
 export const getProducts = async (limit = null, offset = null) => {
@@ -17,7 +18,7 @@ export const getProducts = async (limit = null, offset = null) => {
         }
 
         const response = await axios.get(
-            "http://localhost:8100/api/product",
+            apiBaseUrl + "/product",
             { params, headers },
         )
         return response;
@@ -40,7 +41,7 @@ export const getProductPages = async (perPage) => {
         }
 
         const response = await axios.get(
-            "http://localhost:8100/api/product/pages",
+            apiBaseUrl + "/product/pages",
             { params, headers },
         )
         return response;
@@ -58,7 +59,7 @@ export const getProduct = async (id) => {
         }
 
         const response = await axios.get(
-            "http://localhost:8100/api/product/" + id,
+            apiBaseUrl + "/product/" + id,
             { params, headers }
         )
         return response;
@@ -79,7 +80,7 @@ export const getMyProducts = async (limit = null, offset = null) => {
         }
 
         const response = await axios.get(
-            "http://localhost:8100/api/product/my",
+            apiBaseUrl + "/product/my",
             { params, headers },
         )
         return response;
@@ -96,7 +97,7 @@ export const postProduct = async (product) => {
         };
         console.log(product);
         const response = await axios.post(
-            "http://localhost:8100/api/product",
+            apiBaseUrl + "/product",
             product,
             { headers }
         )
@@ -113,7 +114,7 @@ export const putProduct = async (product) => {
             'Authorization': 'Bearer ' + localStorage.getItem('token')
         };
         const response = await axios.put(
-            "http://localhost:8100/api/product/" + product.id,
+            apiBaseUrl + "/product/" + product.id,
             product,
             { headers }
         )

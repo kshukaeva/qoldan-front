@@ -1,5 +1,6 @@
 import axios from "axios";
 import {noImageUrl} from "../helper/ImageHelper";
+import {apiBaseUrl} from "./useApiCall";
 
 // GET requests
 export const getImage = async (imageId) => {
@@ -12,7 +13,7 @@ export const getImage = async (imageId) => {
         }
 
         const response = await axios.get(
-            "http://localhost:8100/api/image/" + imageId,
+            apiBaseUrl + "/image/" + imageId,
             { params, headers }
         )
         return response;
@@ -23,7 +24,7 @@ export const getImage = async (imageId) => {
 
 export const getImageUrl = (imageId) => {
     if (imageId) {
-        return `http://localhost:8100/api/image/${imageId}`;
+        return apiBaseUrl + `/image/${imageId}`;
     } else {
         return noImageUrl;
     }
@@ -40,7 +41,7 @@ export const postImage = async (image) => {
             'Content-Type': 'multipart/form-data'
         };
         const response = await axios.post(
-            "http://localhost:8100/api/image",
+            apiBaseUrl + "/image",
             data,
             { headers }
         )

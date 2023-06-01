@@ -1,4 +1,5 @@
 import axios from "axios";
+import {apiBaseUrl} from "./useApiCall";
 
 // GET requests
 export const getSellOrders = async (sellConfirmed = null) => {
@@ -13,7 +14,7 @@ export const getSellOrders = async (sellConfirmed = null) => {
             'Authorization': 'Bearer ' + localStorage.getItem('token')
         };
         const response = await axios.get(
-            "http://localhost:8100/api/my-orders/sells",
+            apiBaseUrl + "/my-orders/sells",
             { params, headers }
         )
         return response;
@@ -32,7 +33,7 @@ export const getPurchaseOrders = async (status = null) => {
             'Authorization': 'Bearer ' + localStorage.getItem('token')
         };
         const response = await axios.get(
-            "http://localhost:8100/api/my-orders/purchases",
+            apiBaseUrl + "/my-orders/purchases",
             { params, headers }
         )
         return response;
@@ -51,7 +52,7 @@ export const postOrder = async (address, paymentId) => {
             'Authorization': 'Bearer ' + localStorage.getItem('token')
         };
         const response = await axios.post(
-            "http://localhost:8100/api/my-orders",
+            apiBaseUrl + "/my-orders",
             address,
             { params, headers }
         )
@@ -69,7 +70,7 @@ export const putSellConfirm = async (productId) => {
             'Authorization': 'Bearer ' + localStorage.getItem('token')
         };
         const response = await axios.put(
-            "http://localhost:8100/api/my-orders/confirm/sell-product/" + productId,
+            apiBaseUrl + "/my-orders/confirm/sell-product/" + productId,
             {},
             { params, headers }
         )
@@ -86,7 +87,7 @@ export const putPurchaseProductConfirm = async (productId) => {
             'Authorization': 'Bearer ' + localStorage.getItem('token')
         };
         const response = await axios.put(
-            "http://localhost:8100/api/my-orders/confirm/product/" + productId,
+            apiBaseUrl + "/my-orders/confirm/product/" + productId,
             {},
             { params, headers }
         )
@@ -103,7 +104,7 @@ export const putPurchaseOrderConfirm = async (orderId) => {
             'Authorization': 'Bearer ' + localStorage.getItem('token')
         };
         const response = await axios.put(
-            "http://localhost:8100/api/my-orders/confirm/" + orderId,
+            apiBaseUrl + "/my-orders/confirm/" + orderId,
             {},
             { params, headers }
         )

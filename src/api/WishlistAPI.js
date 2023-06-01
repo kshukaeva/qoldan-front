@@ -1,4 +1,5 @@
 import axios from "axios";
+import {apiBaseUrl} from "./useApiCall";
 
 export const postAddToWishlist = async (productId) => {
     try {
@@ -9,7 +10,7 @@ export const postAddToWishlist = async (productId) => {
             'Authorization': 'Bearer ' + localStorage.getItem('token')
         }
         const response = await axios.post(
-            "http://localhost:8100/api/my-wishlist",
+            apiBaseUrl + "/my-wishlist",
             { }, { params, headers }
         )
         return response;
@@ -27,7 +28,7 @@ export const deleteFromWishlist = async (productId) => {
             'Authorization': 'Bearer ' + localStorage.getItem('token')
         }
         const response = await axios.delete(
-            "http://localhost:8100/api/my-wishlist",
+            apiBaseUrl + "/my-wishlist",
             { params, headers }
         )
         return response;
@@ -49,7 +50,7 @@ export const getMyWishlist = async (limit, offset) => {
         }
 
         const response = await axios.get(
-            "http://localhost:8100/api/my-wishlist",
+            apiBaseUrl + "/my-wishlist",
             { params, headers }
         )
         return response;
